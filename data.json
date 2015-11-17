@@ -1,0 +1,302 @@
+[
+{
+"provider":"Украина",
+"instrument": "Equities",
+"data": "402"
+},
+{
+"provider":"Украина",
+"instrument": "Inv_Sertificates",
+"data": "24"
+},
+{
+"provider":"Украина",
+"instrument": "Bonds",
+"data": "72"
+},
+{
+"provider":"Украина",
+"instrument": "Domestic_bonds",
+"data": "130"
+},
+{
+"provider":"Украина",
+"instrument": "Eurobonds",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "FX_Currency",
+"data": "41"
+},
+{
+"provider":"Украина",
+"instrument": "Money_market",
+"data": "64"
+},
+{
+"provider":"Украина",
+"instrument": "Interest_Rate",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "Commodities_Precious_metals",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "Index",
+"data": "9"
+},
+{
+"provider":"Украина",
+"instrument": "FX_Currency_SPOT",
+"data": "41"
+},
+{
+"provider":"Украина",
+"instrument": "Futures",
+"data": "18"
+},
+{
+"provider":"Украина",
+"instrument": "Commodities_Agriculture",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "Commodities_Petroleum/GAS",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "Debt",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "Commodities_Precious_Metals",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "FX_Currency_Forward",
+"data": "42"
+},
+{
+"provider":"Украина",
+"instrument": "Options",
+"data": "1"
+},
+{
+"provider":"Украина",
+"instrument": "Interest_rate",
+"data": "0"
+},
+{
+"provider":"Украина",
+"instrument": "Benchmark_Rate",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Equities",
+"data": "217"
+},
+{
+"provider":"Россия",
+"instrument": "Inv_Sertificates",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Bonds",
+"data": "1082"
+},
+{
+"provider":"Россия",
+"instrument": "Domestic_bonds",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Eurobonds",
+"data": "17"
+},
+{
+"provider":"Россия",
+"instrument": "FX_Currency",
+"data": "12"
+},
+{
+"provider":"Россия",
+"instrument": "Money_market",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Interest_Rate",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Commodities_Precious_metals",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Index",
+"data": "38"
+},
+{
+"provider":"Россия",
+"instrument": "FX_Currency_SPOT",
+"data": "25"
+},
+{
+"provider":"Россия",
+"instrument": "Futures",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Commodities_Agriculture",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Commodities_Petroleum/GAS",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Debt",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Commodities_Precious_Metals",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "FX_Currency_Forward",
+"data": "20"
+},
+{
+"provider":"Россия",
+"instrument": "Options",
+"data": "28"
+},
+{
+"provider":"Россия",
+"instrument": "Interest_rate",
+"data": "0"
+},
+{
+"provider":"Россия",
+"instrument": "Benchmark_Rate",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Equities",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Inv_Sertificates",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Bonds",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Domestic_bonds",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Eurobonds",
+"data": "285"
+},
+{
+"provider":"Швейцария",
+"instrument": "FX_Currency",
+"data": "548"
+},
+{
+"provider":"Швейцария",
+"instrument": "Money_market",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Interest_Rate",
+"data": "148"
+},
+{
+"provider":"Швейцария",
+"instrument": "Commodities_Precious_metals",
+"data": "18"
+},
+{
+"provider":"Швейцария",
+"instrument": "Index",
+"data": "3"
+},
+{
+"provider":"Швейцария",
+"instrument": "FX_Currency_SPOT",
+"data": "548"
+},
+{
+"provider":"Швейцария",
+"instrument": "Futures",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Commodities_Agriculture",
+"data": "11"
+},
+{
+"provider":"Швейцария",
+"instrument": "Commodities_Petroleum/GAS",
+"data": "24"
+},
+{
+"provider":"Швейцария",
+"instrument": "Debt",
+"data": "1"
+},
+{
+"provider":"Швейцария",
+"instrument": "Commodities_Precious_Metals",
+"data": "4"
+},
+{
+"provider":"Швейцария",
+"instrument": "FX_Currency_Forward",
+"data": "582"
+},
+{
+"provider":"Швейцария",
+"instrument": "Options",
+"data": "0"
+},
+{
+"provider":"Швейцария",
+"instrument": "Interest_rate",
+"data": "12"
+},
+{
+"provider":"Швейцария",
+"instrument": "Benchmark_Rate",
+"data": "17"
+}
+]
