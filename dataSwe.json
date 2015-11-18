@@ -1,62 +1,156 @@
 [
 {
-"data": 0
+"data": 0,
+"group": 1,
+"cntr": 2,
+"globalcntr": 2,
+"title": "Акции"
 },
 {
-"data": 0
+"data": 0,
+"group": 1,
+"cntr": 5,
+"globalcntr": 5,
+"title": "Инвестиционные сертификаты"
 },
 {
-"data": 0
+"data": 0,
+"group": 1,
+"cntr": 1,
+"globalcntr": 1,
+"title": "Облигации"
 },
 {
-"data": 0
+"data": 0,
+"group": 1,
+"cntr": 4,
+"globalcntr": 4,
+"title": "Региональные облигации"
 },
 {
-"data": 285
+"data": 285,
+"group": 1,
+"cntr": 3,
+"globalcntr": 3,
+"title": "Еврооблигации"
 },
 {
-"data": 548
+"data": 548,
+"group": 2,
+"cntr": 1,
+"globalcntr": 6,
+"title": "ФОРЕКС"
 },
 {
-"data": 0
+"data": 0,
+"group": 6,
+"cntr": 1,
+"globalcntr": 19,
+"title": "ДЕНЕЖНЫЙ РЫНОК"
 },
 {
-"data": 148
+"data": 160,
+"group": 3,
+"cntr": 1,
+"globalcntr": 8,
+"title": "Ставки (interest)"
 },
 {
-"data": 18
+"data": 22,
+"group": 5,
+"cntr": 2,
+"globalcntr": 17,
+"title": "Цветные металлы"
 },
 {
-"data": 3
+"data": 3,
+"group": 7,
+"cntr": 1,
+"globalcntr": 20,
+"title": "ИНДЕКСЫ"
 },
 {
-"data": 548
+"data": 548,
+"group": 4,
+"cntr": 4,
+"globalcntr": 14,
+"title": "Споты"
 },
 {
-"data": 0
+"data": 0,
+"group": 4,
+"cntr": 3,
+"globalcntr": 13,
+"title": "Фьючерсы"
 },
 {
-"data": 11
+"data": 11,
+"group": 5,
+"cntr": 3,
+"globalcntr": 18,
+"title": "Сельское хозяйство"
 },
 {
-"data": 24
+"data": 24,
+"group": 5,
+"cntr": 1,
+"globalcntr": 16,
+"title": "Нефть и газ"
 },
 {
-"data": 1
+"data": 1,
+"group": 0,
+"cntr": 0,
+"globalcntr": 0,
+"title": ""
 },
 {
-"data": 4
+"data": 582,
+"group": 4,
+"cntr": 1,
+"globalcntr": 11,
+"title": "Форварды"
 },
 {
-"data": 582
+"data": 0,
+"group": 4,
+"cntr": 2,
+"globalcntr": 12,
+"title": "Опционы"
 },
 {
-"data": 0
+"data": 17,
+"group": 3,
+"cntr": 2,
+"globalcntr": 9,
+"title": "Ставки (benchmark)"
 },
 {
-"data": 12
+"data": 0,
+"group": 1,
+"cntr": 0,
+"globalcntr": 0,
+"title": "АКЦИИ И ОБЛИГАЦИИ"
 },
 {
-"data": 17
+"data": 0,
+"group": 3,
+"cntr": 0,
+"globalcntr": 7,
+"title": "СТАВКИ"
+},
+{
+"data": 0,
+"group": 4,
+"cntr": 0,
+"globalcntr": 10,
+"title": "ДЕРИВАТИВЫ"
+},
+{
+"data": 0,
+"group": 5,
+"cntr": 0,
+"globalcntr": 15,
+"title": "ТОВАРНЫЙ РЫНОК"
 }
 ]

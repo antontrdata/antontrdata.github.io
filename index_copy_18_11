@@ -48,7 +48,9 @@ var providerGap = 350;
 var dataStart = 150;
 var topSpace = 100;
 
-
+drawProvider("Россия",dataStart,300);
+drawProvider("Украина",dataStart+350,200);
+drawProvider("Мир",dataStart+500,200);
 
 var data;
 
@@ -57,46 +59,42 @@ d3.json("listInstrument.json", function(data) {
 });
 
 d3.json("dataRus2.json", function(data) {
-  drawData(data,300,"Россия");
+  drawData(data,0,"Россия");
 });
 
-d3.json("dataUkr2.json", function(data) {
-  drawData(data,550,"Украина");
+d3.json("dataUkr.json", function(data) {
+  drawData(data,providerGap,"Украина");
 });
 
-d3.json("dataWld2.json", function(data) {
-  drawData(data,800,"Мир");
+d3.json("dataSwe.json", function(data) {
+  drawData(data,2*providerGap,"Мир");
 });
-
-
 
 
 
 function drawProvider (label, shift, width){
 
 d3.select("svg").append("rect")
-.attr("fill","#333333")
-.attr("x",shift-4)
-.attr("y",topSpace - 70)
-.attr("width",80)
-.attr("height",25);
+.attr("fill","#f5f5f5")
+.attr("x",shift)
+.attr("y",topSpace - 50)
+.attr("width",width)
+.attr("height",900);
 
 d3.select("svg").append("text")
-.attr("x",shift+3)
-.attr("y",topSpace - 53)
-.attr("fill","white")
+.attr("x",shift)
+.attr("y",topSpace - 55)
 .text(label)
-.attr("font-weight",500)
-.attr("font-size",14)
-.attr("letter-spacing",0.5);
+.attr("font-weight",600)
+.attr("font-size",12);
 
 d3.select("svg").append("line")
-.attr("x1",shift-3)
-.attr("x2",shift-3)
-.attr("y1",topSpace - 70)
-.attr("y2",1035)
+.attr("x1",shift)
+.attr("x2",shift + width)
+.attr("y1",topSpace - 50)
+.attr("y2",topSpace - 50)
 .attr("stroke-width",1)
-.attr("stroke","#000000");
+.attr("stroke","#222222");
 } 
 
 function drawInstrument (data){  
@@ -124,7 +122,7 @@ d3.select("svg").selectAll("t")
 
 function drawData (data, shift, label){
 
-/*
+
 d3.select("svg").selectAll("l")
 .data(data).enter()
 .append("line")
@@ -134,12 +132,11 @@ d3.select("svg").selectAll("l")
 .attr("y2",500)
 .attr("stroke-width",0.1)
 .attr("stroke","#222222");
-*/
 
-var circle = d3.select("svg").selectAll("c")
+d3.select("svg").selectAll("c")
 .data(data).enter()
 .append("circle")
-.attr("id",function(d,i) {return "circle"+shift+d.globalcntr})
+.attr("id",function(d,i) {return "circle"+shift+i})
 //.attr("stroke-width",0.5)
 //.attr("stroke","#222222")
 .attr("fill","#faa619")
@@ -147,9 +144,7 @@ var circle = d3.select("svg").selectAll("c")
 .attr("r", function(d){
                         if(d.cntr==0){return 3*Math.sqrt(d.data)}
                         else{return 0}})
-.on("mouseover", function(d,i){d3.select(this).transition().attr("r",3*Math.sqrt(d.data)+5).duration(150)})
-.on("mouseout", function(d,i){d3.select(this).transition().attr("r",3*Math.sqrt(d.data)).duration(150)})
-.attr("cx",shift-3)
+.attr("cx",function(d,i){return shift+dataStart+d.group*30+d.cntr*vertRythm})
 .attr("cy",function(d,i){
                           return topSpace+horizRytm*(d.globalcntr+d.group)});
 
@@ -158,56 +153,25 @@ var circle = d3.select("svg").selectAll("c")
                           else{
                           return topSpace+horizRytm*(d.globalcntr+d.group)}});
 */
-
-/*
-circle.on("mouseover",function(){
-  circle.transition().attr("r",10);
-})/=
-/*
-d3.select("svg")
-.selectAll("circle")
-.on("mouseover", function(d,i){d3.select(this).transition().attr("r",15).duration(150)})
-.on("mouseout", function(d,i){d3.select(this).transition().attr("r",35).duration(150)});
-*/
-
 d3.select("svg").selectAll("n")
 .data(data).enter()
 .append("text")
 .text(function(d){if (d.data>0) {return d.data} else {return }})
 .attr("font-weight",800)
+.attr("font-size",14)
 .attr("font-family","Roboto Slab")
-.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.6}})
-
-.on("mouseover", function(d,i){
-  if(d.cntr>0)
-    {
-      d3.select(this).transition().attr("opacity",1.0).attr("font-size",16)
-    }
-  })
-.on("mouseout", function(d,i){
-  if(d.cntr>0)
-    {
-      d3.select(this).transition().attr("opacity",0.6).attr("font-size",12)
-    }
-  })
-
-
-.attr("x",shift)
+.attr("x",function(d,i){return shift+dataStart+d.group*30+d.cntr*vertRythm})
 .attr("y",function(d,i){//{return topSpace+horizRytm*d.globalcntr});
-                          return topSpace+horizRytm*(d.globalcntr+d.group)})
-.attr("font-size", function(d){
-                                if(d.cntr==0){return 32}
-                                else{return 12}});
+                          return topSpace+horizRytm*(d.globalcntr+d.group)});
 
-
-if (label == "Мир")
+if (label == "Россия")
 {
 d3.select("svg").selectAll("t")
 .data(data).enter()
 .append("text")
-.attr("font-weight",function(d){if(d.cntr==0){return 600} else {return 500}})
-.attr("font-size",function(d){if(d.cntr==0){return 14} else {return 12}})
-.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.6}})
+.attr("font-weight",500)
+.attr("font-size",11)
+.attr("opacity",function(d){if(d.cntr==0){return 0.4}else{return 1}})
 .text(function(d) {return d.title})  
 .attr("x",10)
 .attr("y",function(d,i){//return topSpace+horizRytm*d.globalcntr})
@@ -216,17 +180,16 @@ d3.select("svg").selectAll("t")
 d3.select("svg").selectAll("l")
 .data(data).enter()
 .append("line")
-.attr("stroke-width",0.1)
+.attr("stroke-width",0.4)
 .attr("stroke","#000000")
-.attr("x1",10).attr("x2",875)
+.attr("x1",10).attr("x2",800)
 .attr("y1",function(d,i){
-                          return 3+topSpace+horizRytm*(d.globalcntr+d.group)})
+                          return topSpace+horizRytm*(d.globalcntr+d.group)})
 .attr("y2",function(d,i){
-                          return 3+topSpace+horizRytm*(d.globalcntr+d.group)});
-}
-drawProvider(label,shift,300);
+                          return topSpace+horizRytm*(d.globalcntr+d.group)});
 }
 
+}
 </script>
 
 

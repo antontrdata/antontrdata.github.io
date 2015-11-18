@@ -24,7 +24,7 @@
 "instrument": "Interest_Rate"
 },
 {
-"instrument": "Commodities_Precious_metals"
+"instrument": "Commodities_Precious_Metals"
 },
 {
 "instrument": "Index"
@@ -39,22 +39,16 @@
 "instrument": "Commodities_Agriculture"
 },
 {
-"instrument": "Commodities_Petroleum/GAS"
+"instrument": "Commodities_PetroleumGAS"
 },
 {
 "instrument": "Debt"
-},
-{
-"instrument": "Commodities_Precious_Metals"
 },
 {
 "instrument": "FX_Currency_Forward"
 },
 {
 "instrument": "Options"
-},
-{
-"instrument": "Interest_rate"
 },
 {
 "instrument": "Benchmark_Rate"

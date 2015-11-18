@@ -1,0 +1,172 @@
+[
+{
+"data": 1325,
+"group": 0,
+"cntr": 0,
+"globalcntr": 1,
+"title": "АКЦИИ И ОБЛИГАЦИИ"
+},
+{
+"data": 1043,
+"group": 0,
+"cntr": 1,
+"globalcntr": 2,
+"title": "Облигации"
+},
+{
+"data": 213,
+"group": 0,
+"cntr": 2,
+"globalcntr": 3,
+"title": "Акции"
+},
+{
+"data": 302,
+"group": 0,
+"cntr": 3,
+"globalcntr": 4,
+"title": "Еврооблигации"
+},
+{
+"data": 37,
+"group": 0,
+"cntr": 4,
+"globalcntr": 5,
+"title": "Региональные облигации"
+},
+{
+"data": 0,
+"group": 0,
+"cntr": 5,
+"globalcntr": 6,
+"title": "Инвестиционные сертификаты"
+},
+
+{
+"data": 17,
+"group": 1,
+"cntr": 0,
+"globalcntr": 7,
+"title": "ФОРЕКС"
+},
+
+{
+"data": 18,
+"group": 2,
+"cntr": 0,
+"globalcntr": 8,
+"title": "СТАВКИ"
+},
+{
+"data": 18,
+"group": 2,
+"cntr": 1,
+"globalcntr": 9,
+"title": "Ставки (interest)"
+},
+{
+"data": 0,
+"group": 2,
+"cntr": 2,
+"globalcntr": 10,
+"title": "Ставки (benchmark)"
+},
+
+
+{
+"data": 51,
+"group": 3,
+"cntr": 0,
+"globalcntr": 11,
+"title": "ДЕРИВАТИВЫ"
+},
+{
+"data": 10,
+"group": 3,
+"cntr": 1,
+"globalcntr": 12,
+"title": "Форварды"
+},
+{
+"data": 28,
+"group": 3,
+"cntr": 2,
+"globalcntr": 13,
+"title": "Опционы"
+},
+{
+"data": 0,
+"group": 3,
+"cntr": 3,
+"globalcntr": 14,
+"title": "Фьючерсы"
+},
+{
+"data": 13,
+"group": 3,
+"cntr": 4,
+"globalcntr": 15,
+"title": "Споты"
+},
+
+{
+"data": 0,
+"group": 4,
+"cntr": 0,
+"globalcntr": 16,
+"title": "ТОВАРНЫЙ РЫНОК"
+},
+{
+"data": 0,
+"group": 4,
+"cntr": 1,
+"globalcntr": 17,
+"title": "Нефть и газ"
+},
+{
+"data": 0,
+"group": 4,
+"cntr": 2,
+"globalcntr": 18,
+"title": "Цветные металлы"
+},
+{
+"data": 0,
+"group": 4,
+"cntr": 3,
+"globalcntr": 19,
+"title": "Сельское хозяйство"
+},
+
+{
+"data": 0,
+"group": 5,
+"cntr": 0,
+"globalcntr": 20,
+"title": "ДЕНЕЖНЫЙ РЫНОК"
+},
+
+{
+"data": 38,
+"group": 6,
+"cntr": 0,
+"globalcntr": 21,
+"title": "ИНДЕКСЫ"
+},
+
+{
+"data": 0,
+"group": 7,
+"cntr": 0,
+"globalcntr": 22,
+"title": "БАНКНОТНЫЕ ОПЕРАЦИИ"
+},
+
+{
+"data": 0,
+"group": 8,
+"cntr": 0,
+"globalcntr": 23,
+"title": "НАЛИЧНЫЕ ОПЕРАЦИИ"
+}
+]

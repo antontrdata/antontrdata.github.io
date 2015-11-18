@@ -41,7 +41,7 @@
 },
 {
 "provider":"Украина",
-"instrument": "Commodities_Precious_metals",
+"instrument": "Commodities_Precious_Metals",
 "data": "0"
 },
 {
@@ -66,17 +66,12 @@
 },
 {
 "provider":"Украина",
-"instrument": "Commodities_Petroleum/GAS",
+"instrument": "Commodities_PetroleumGAS",
 "data": "0"
 },
 {
 "provider":"Украина",
 "instrument": "Debt",
-"data": "0"
-},
-{
-"provider":"Украина",
-"instrument": "Commodities_Precious_Metals",
 "data": "0"
 },
 {
@@ -88,11 +83,6 @@
 "provider":"Украина",
 "instrument": "Options",
 "data": "1"
-},
-{
-"provider":"Украина",
-"instrument": "Interest_rate",
-"data": "0"
 },
 {
 "provider":"Украина",
@@ -141,7 +131,7 @@
 },
 {
 "provider":"Россия",
-"instrument": "Commodities_Precious_metals",
+"instrument": "Commodities_Precious_Metals",
 "data": "0"
 },
 {
@@ -166,17 +156,12 @@
 },
 {
 "provider":"Россия",
-"instrument": "Commodities_Petroleum/GAS",
+"instrument": "Commodities_PetroleumGAS",
 "data": "0"
 },
 {
 "provider":"Россия",
 "instrument": "Debt",
-"data": "0"
-},
-{
-"provider":"Россия",
-"instrument": "Commodities_Precious_Metals",
 "data": "0"
 },
 {
@@ -188,11 +173,6 @@
 "provider":"Россия",
 "instrument": "Options",
 "data": "28"
-},
-{
-"provider":"Россия",
-"instrument": "Interest_rate",
-"data": "0"
 },
 {
 "provider":"Россия",
@@ -237,12 +217,12 @@
 {
 "provider":"Швейцария",
 "instrument": "Interest_Rate",
-"data": "148"
+"data": "160"
 },
 {
 "provider":"Швейцария",
-"instrument": "Commodities_Precious_metals",
-"data": "18"
+"instrument": "Commodities_Precious_Metals",
+"data": "22"
 },
 {
 "provider":"Швейцария",
@@ -266,18 +246,13 @@
 },
 {
 "provider":"Швейцария",
-"instrument": "Commodities_Petroleum/GAS",
+"instrument": "Commodities_PetroleumGAS",
 "data": "24"
 },
 {
 "provider":"Швейцария",
 "instrument": "Debt",
 "data": "1"
-},
-{
-"provider":"Швейцария",
-"instrument": "Commodities_Precious_Metals",
-"data": "4"
 },
 {
 "provider":"Швейцария",
@@ -288,11 +263,6 @@
 "provider":"Швейцария",
 "instrument": "Options",
 "data": "0"
-},
-{
-"provider":"Швейцария",
-"instrument": "Interest_rate",
-"data": "12"
 },
 {
 "provider":"Швейцария",
