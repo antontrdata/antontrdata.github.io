@@ -94,9 +94,10 @@ d3.select("svg").append("line")
 .attr("x1",shift-3)
 .attr("x2",shift-3)
 .attr("y1",topSpace - 70)
-.attr("y2",1035)
+.attr("y2",915)//1035)
 .attr("stroke-width",1)
-.attr("stroke","#000000");
+.attr("stroke","#000000")
+.attr("opacity",0.3);
 } 
 
 function drawInstrument (data){  
@@ -143,7 +144,7 @@ var circle = d3.select("svg").selectAll("c")
 //.attr("stroke-width",0.5)
 //.attr("stroke","#222222")
 .attr("fill","#faa619")
-//.attr("opacity",1)
+.attr("opacity",0.9)
 .attr("r", function(d){
                         if(d.cntr==0){return 3*Math.sqrt(d.data)}
                         else{return 0}})
@@ -176,7 +177,7 @@ d3.select("svg").selectAll("n")
 .text(function(d){if (d.data>0) {return d.data} else {return }})
 .attr("font-weight",800)
 .attr("font-family","Roboto Slab")
-.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.6}})
+.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.3}})
 
 .on("mouseover", function(d,i){
   if(d.cntr>0)
@@ -187,7 +188,7 @@ d3.select("svg").selectAll("n")
 .on("mouseout", function(d,i){
   if(d.cntr>0)
     {
-      d3.select(this).transition().attr("opacity",0.6).attr("font-size",12)
+      d3.select(this).transition().attr("opacity",0.3).attr("font-size",12)
     }
   })
 
@@ -207,7 +208,7 @@ d3.select("svg").selectAll("t")
 .append("text")
 .attr("font-weight",function(d){if(d.cntr==0){return 600} else {return 500}})
 .attr("font-size",function(d){if(d.cntr==0){return 14} else {return 12}})
-.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.6}})
+.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.3}})
 .text(function(d) {return d.title})  
 .attr("x",10)
 .attr("y",function(d,i){//return topSpace+horizRytm*d.globalcntr})

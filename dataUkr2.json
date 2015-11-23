@@ -110,7 +110,7 @@
 },
 
 {
-"data": 1,
+"data": 0,
 "group": 4,
 "cntr": 0,
 "globalcntr": 16,
@@ -124,7 +124,7 @@
 "title": "Нефть и газ"
 },
 {
-"data": 1,
+"data": 0,
 "group": 4,
 "cntr": 2,
 "globalcntr": 18,
@@ -152,21 +152,5 @@
 "cntr": 0,
 "globalcntr": 21,
 "title": "ИНДЕКСЫ"
-},
-
-{
-"data": 9,
-"group": 7,
-"cntr": 0,
-"globalcntr": 22,
-"title": "БАНКНОТНЫЕ ОПЕРАЦИИ"
-},
-
-{
-"data": 5,
-"group": 8,
-"cntr": 0,
-"globalcntr": 23,
-"title": "НАЛИЧНЫЕ ОПЕРАЦИИ"
 }
 ]
