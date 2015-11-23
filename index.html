@@ -217,8 +217,11 @@ d3.select("svg").selectAll("t")
 d3.select("svg").selectAll("l")
 .data(data).enter()
 .append("line")
-.attr("stroke-width",0.1)
+.attr("stroke-width",1)
 .attr("stroke","#000000")
+.attr("opacity", function(d){
+                                if(d.cntr==0){return 0.9}
+                                else{return 0.2}})
 .attr("x1",10).attr("x2",875)
 .attr("y1",function(d,i){
                           return 3+topSpace+horizRytm*(d.globalcntr+d.group)})
