@@ -1,19 +1,19 @@
 [
 {
-"data": 234,
+"data": 0,
 "group": 0,
 "cntr": 0,
 "globalcntr": 1,
 "title": "ОБЛИГАЦИИ",
-"link": "ukraine_generalbonds"
+"link": ""
 },
 {
-"data": 71,
+"data": 0,
 "group": 0,
 "cntr": 1,
 "globalcntr": 2,
 "title": "Бонды",
-"link": "ukraine_generalbonds"
+"link": ""
 },
 {
 "data": 0,
@@ -21,100 +21,100 @@
 "cntr": 2,
 "globalcntr": 3,
 "title": "Евробонды",
-"link": "ukraine_eurobonds"
+"link": ""
 },
 {
-"data": 121,
+"data": 0,
 "group": 0,
 "cntr": 3,
 "globalcntr": 4,
 "title": "Региональные облигации",
-"link": "ukraine_regionalbonds"
+"link": ""
 },
 {
-"data": 24,
+"data": 0,
 "group": 0,
 "cntr": 4,
 "globalcntr": 5,
 "title": "Инвестиционные сертификаты",
-"link": "ukraine_invest"
+"link": ""
 },
 
 {
-"data": 300,
+"data": 0,
 "group": 1,
 "cntr": 0,
 "globalcntr": 6,
 "title": "АКЦИИ",
-"link": "ukraine_equities"
+"link": ""
 },
 
 {
-"data": 25,
+"data": 0,
 "group": 2,
 "cntr": 0,
 "globalcntr": 7,
 "title": "ДЕРИВАТИВЫ",
-"link": "ukraine_volatility"
+"link": ""
 },
 
 {
-"data": 53,
+"data": 47,
 "group": 3,
 "cntr": 0,
 "globalcntr": 8,
 "title": "СТАВКИ",
-"link": "ukraine_rates"
+"link": "world_rates"
 },
 
 {
-"data": 20,
+"data": 55,
 "group": 4,
 "cntr": 0,
 "globalcntr": 9,
 "title": "РЫНОК МЕТАЛЛОВ И ТОВАРОВ",
-"link": "ukraine_metals"
+"link": "world_metals"
 },
 {
-"data": 20,
+"data": 22,
 "group": 4,
 "cntr": 1,
 "globalcntr": 10,
 "title": "Цветные металлы",
-"link": "ukraine_metals"
+"link": "world_metals"
 },
 {
-"data": 0,
+"data": 22,
 "group": 4,
 "cntr": 2,
 "globalcntr": 11,
 "title": "Нефть и газ",
-"link": ""
+"link": "world_oil"
 },
 {
-"data": 0,
+"data": 11,
 "group": 4,
 "cntr": 3,
 "globalcntr": 12,
 "title": "Сельское хозяйство",
-"link": ""
+"link": "world_agriculture"
 },
 
 {
-"data": 18,
+"data": 24,
 "group": 5,
 "cntr": 0,
 "globalcntr": 13,
 "title": "ФОРЕКС",
-"link": "ukraine_forex"
+"link": "world_forex"
 },
 
 {
-"data": 32,
+"data": 0,
 "group": 6,
 "cntr": 0,
 "globalcntr": 14,
 "title": "ИНДЕКСЫ",
-"link": "ukraine_index"
+"link": "world_index"
 }
 ]

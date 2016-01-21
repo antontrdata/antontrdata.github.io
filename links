@@ -1,0 +1,39 @@
+Россия > Облигации > Бонды		subtitle	russia_generalbonds			
+Россия > Облигации > Евробонды		subtitle	russia_eurobonds
+Россия > Облигации > Региональные бонды		subtitle	russia_regionalbonds
+Россия > Акции		title	russia_equities
+Россия > Деривативы > Volatility_surface		subtitle	russia_volatility
+Россия > Деривативы > SWAP		subtitle	russia_swap
+Россия > Деривативы > Форварды		subtitle	russia_forwards
+Россия > Деривативы > Фьючерсы		subtitle	russia_futures
+Россия > Ставки		title	russia_rates
+Россия > Форекс		title	russia_forex
+Россия > Индексы		title	russia_index
+			
+Украина > Облигации > Бонды		subtitle	ukraine_generalbonds
+Украина > Облигации > Евробонды		subtitle	ukraine_eurobonds
+Украина > Облигации > Региональные бонды		subtitle	ukraine_regionalbonds
+Украина > Облигации > Инвестиционные сертификаты		subtitle	ukraine_invest
+Украина > Облигации > Депозитные сертификаты		subtitle	ukraine_deposit
+Украина > Акции		title	ukraine_equities
+Украина > Деривативы > SWAP		subtitle	
+Украина > Деривативы > Фьючерсы		subtitle	
+Украина > Деривативы > Другие деривативы		subtitle	
+Украина > Рынок металлов и товаров		title	
+Украина > Рынок металлов и товаров > Драгоценные металлы		subtitle	ukraine_metals
+Украина > Форекс		title	ukraine_forex
+Украина > Индексы		title	ukraine_index
+Украина > Банкнотные операции		title	ukraine_banknotes
+Украина > Обмен наличности		title	ukraine_cash
+
+Мир > Ставки		title	world_rates
+Мир > Рынок металлов и товаров > Драгоценные металлы		subtitle	world_metals
+Мир > Рынок металлов и товаров >  Нефть и газ		subtitle	world_oil
+Мир > Рынок металлов и товаров > Сельское хозяйство		subtitle	world_agriculture
+Мир > Форекс		title	world_forex
+Мир > Индексы		title	world_index
+	
+EMEA > Облигации > Евробонды		subtitle	emea_eurobonds
+
+
+

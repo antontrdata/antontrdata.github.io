@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<title>Data structure</title>
+</head>
+
+
+
+<style>
+body{
+position: absolute;
+width: 1280px;
+height:1280px; 
+font-family: 'Roboto', sans-serif;
+}
+
+svg {
+width: 100%;
+height: 100%;
+left: 0;
+}
+
+instrument{
+position: absolute;
+}
+</style>
+
+
+
+<body>
+<svg></svg>
+
+
+
+<script>
+var vertRythm = 30;
+var horizRytm = 35;
+var scaleCoeffY = 0.95;
+
+//var spaceInstruments = 30;
+
+var providerGap = 350;
+var dataStart = 150;
+var topSpace = 100;
+
+
+
+var data;
+
+d3.json("listInstrument.json", function(data) {
+  drawInstrument(data);
+});
+
+d3.json("dataRus5.json", function(data) {
+  drawData(data,253,"Россия");
+});
+
+d3.json("dataUkr5.json", function(data) {
+  drawData(data,453,"Украина");
+});
+
+d3.json("dataWld5.json", function(data) {
+  drawData(data,653,"Мир");
+});
+
+d3.json("dataEMEA5.json", function(data) {
+  drawData(data,853,"EMEA");
+});
+
+
+
+
+function drawProvider (label, shift, width){
+
+d3.select("svg").append("rect")
+.attr("fill","#333333")
+.attr("x",shift-3)
+.attr("y",topSpace - 70)
+.attr("width",80)
+.attr("height",25);
+
+d3.select("svg").append("text")
+.attr("x",shift+3)
+.attr("y",topSpace - 53)
+.attr("fill","white")
+.text(label)
+.attr("font-weight",500)
+.attr("font-size",14)
+.attr("letter-spacing",0.5);
+
+d3.select("svg").append("line")
+.attr("x1",shift-3)
+.attr("x2",shift-3)
+.attr("y1",topSpace - 70)
+.attr("y2",768)//1035)
+.attr("stroke-width",1)
+.attr("stroke","#000000")
+.attr("opacity",0.3);
+} 
+
+function drawInstrument (data){  
+/*
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("line")
+.attr("stroke-width",0.4)
+.attr("stroke","#000000")
+.attr("x1",10).attr("x2",800)
+.attr("y1",function(d,i){return topSpace+i*30})
+.attr("y2",function(d,i){return topSpace+i*30});
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",500)
+.attr("font-size",11)
+.attr("opacity",0.6)
+.attr("x",10)
+.attr("y",function(d,i){return topSpace+i*30-5})
+.text(function(d) {return d.instrument});  */
+}
+
+
+function drawData (data, shift, label){
+
+/*
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("line")
+.attr("x1",function(d,i){return shift+dataStart+i*vertRythm})
+.attr("x2",function(d,i){return shift+dataStart+i*vertRythm})
+.attr("y1",topSpace - 50)
+.attr("y2",500)
+.attr("stroke-width",0.1)
+.attr("stroke","#222222");
+*/
+
+var circle = d3.select("svg").selectAll("c")
+.data(data).enter()
+.append("a")
+.attr("xlink:href", function(d) {return "#"+d.link})
+.append("circle")
+.attr("id",function(d,i) {return "circle"+shift+d.globalcntr})
+//.attr("stroke-width",0.5)
+//.attr("stroke","#222222")
+.attr("fill","#faa619")
+.attr("opacity",0.9)
+.attr("r", function(d){
+                        if(d.cntr==0){return 3*Math.sqrt(d.data)}
+                        else{return 0}})
+.on("mouseover", function(d,i){d3.select(this).transition().attr("r",3*Math.sqrt(d.data)+5).duration(150)})
+.on("mouseout", function(d,i){d3.select(this).transition().attr("r",3*Math.sqrt(d.data)).duration(150)})
+.attr("cx",shift-3)
+.attr("cy",function(d,i){
+                          return topSpace+scaleCoeffY*horizRytm*(d.globalcntr+d.group)});
+//.html("<a href=\"#tips\">Visit the Useful Tips Section</a>");
+
+//.attr("xmlns","http://www.w3.org/2000/svg")
+//.attr("xmlns:xlink","http://www.w3.org/1999/xlink");
+
+//.attr("xlink:href","http://www.w3schools.com/html");
+
+
+/*                          if(d.cntr==0){
+                          return spaceInstruments + topSpace+horizRytm*d.globalcntr}
+                          else{
+                          return topSpace+horizRytm*(d.globalcntr+d.group)}});
+*/
+
+/*
+circle.on("mouseover",function(){
+  circle.transition().attr("r",10);
+})/=
+/*
+d3.select("svg")
+.selectAll("circle")
+.on("mouseover", function(d,i){d3.select(this).transition().attr("r",15).duration(150)})
+.on("mouseout", function(d,i){d3.select(this).transition().attr("r",35).duration(150)});
+*/
+
+d3.select("svg").selectAll("n")
+.data(data).enter()
+.append("a")
+.attr("xlink:href", function(d) {return "#"+d.link})
+.append("text")
+.text(function(d){if (d.data>0) {return d.data} else {return }})
+.attr("font-weight",800)
+.attr("font-family","Roboto Slab")
+.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.3}})
+
+.on("mouseover", function(d,i){
+  if(d.cntr>0)
+    {
+      d3.select(this).transition().attr("opacity",1.0).attr("font-size",16)
+    }
+    else
+    {
+      d3.select(this).transition().attr("opacity",1.0).attr("font-size",34)
+    }
+  })
+.on("mouseout", function(d,i){
+  if(d.cntr>0)
+    {
+      d3.select(this).transition().attr("opacity",0.3).attr("font-size",12)
+    }
+    else
+    {
+      d3.select(this).transition().attr("opacity",1.0).attr("font-size",30)
+    }
+  })
+
+
+.attr("x",shift)
+.attr("y",function(d,i){//{return topSpace+horizRytm*d.globalcntr});
+                          return topSpace+scaleCoeffY*horizRytm*(d.globalcntr+d.group)})
+.attr("font-size", function(d){
+                                if(d.cntr==0){return 30}
+                                else{return 12}});
+
+
+if (label == "EMEA")
+{
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",function(d){if(d.cntr==0){return 600} else {return 500}})
+.attr("font-size",function(d){if(d.cntr==0){return 14} else {return 12}})
+.attr("opacity",function(d){if(d.cntr==0){return 1} else {return 0.3}})
+.text(function(d) {return d.title})  
+.attr("x",0)
+.attr("y",function(d,i){//return topSpace+horizRytm*d.globalcntr})
+                          return topSpace+scaleCoeffY*horizRytm*(d.globalcntr+d.group)});
+
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("line")
+.attr("stroke-width",1)
+.attr("stroke","#000000")
+.attr("opacity", function(d){
+                                if(d.cntr==0){return 0.9}
+                                else{return 0.2}})
+.attr("x1",0).attr("x2",930)
+.attr("y1",function(d,i){
+                          return 3+topSpace+scaleCoeffY*horizRytm*(d.globalcntr+d.group)})
+.attr("y2",function(d,i){
+                          return 3+topSpace+scaleCoeffY*horizRytm*(d.globalcntr+d.group)});
+}
+drawProvider(label,shift,300);
+}
+
+</script>
+
+
+
+</body>
+
+</html>

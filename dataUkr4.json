@@ -1,0 +1,52 @@
+[
+{
+"data": 234,
+"group": 0,
+"cntr": 0,
+"globalcntr": 1,
+"title": "ОБЛИГАЦИИ"
+},
+{
+"data": 300,
+"group": 1,
+"cntr": 0,
+"globalcntr": 2,
+"title": "АКЦИИ"
+},
+{
+"data": 11,
+"group": 2,
+"cntr": 0,
+"globalcntr": 3,
+"title": "ФОРЕКС"
+},
+{
+"data": 53,
+"group": 3,
+"cntr": 0,
+"globalcntr": 4,
+"title": "СТАВКИ"
+},
+
+{
+"data": 25,
+"group": 4,
+"cntr": 0,
+"globalcntr": 5,
+"title": "ДЕРИВАТИВЫ"
+},
+{
+"data": 20,
+"group": 5,
+"cntr": 0,
+"globalcntr": 6,
+"title": "РЫНОК МЕТАЛЛОВ И ТОВАРОВ"
+},
+{
+"data": 0,
+"group": 6,
+"cntr": 0,
+"globalcntr": 7,
+"title": "ИНДЕКСЫ"
+}
+]

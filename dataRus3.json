@@ -1,0 +1,108 @@
+[
+{
+"data": 1188,
+"group": 0,
+"cntr": 0,
+"globalcntr": 1,
+"title": "ОБЛИГАЦИИ"
+},
+{
+"data": 1043,
+"group": 0,
+"cntr": 1,
+"globalcntr": 2,
+"title": "Бонды"
+},
+{
+"data": 108,
+"group": 0,
+"cntr": 2,
+"globalcntr": 3,
+"title": "Евробонды"
+},
+{
+"data": 37,
+"group": 0,
+"cntr": 3,
+"globalcntr": 4,
+"title": "Региональные облигации"
+},
+{
+"data": 0,
+"group": 0,
+"cntr": 4,
+"globalcntr": 5,
+"title": "Инвестиционные сертификаты"
+},
+{
+"data": 0,
+"group": 0,
+"cntr": 5,
+"globalcntr": 6,
+"title": "Депозитные сертификаты"
+},
+{
+"data": 213,
+"group": 1,
+"cntr": 0,
+"globalcntr": 7,
+"title": "АКЦИИ"
+},
+{
+"data": 18,
+"group": 2,
+"cntr": 0,
+"globalcntr": 8,
+"title": "ФОРЕКС"
+},
+{
+"data": 12,
+"group": 3,
+"cntr": 0,
+"globalcntr": 9,
+"title": "СТАВКИ"
+},
+
+{
+"data": 141,
+"group": 4,
+"cntr": 0,
+"globalcntr": 10,
+"title": "ДЕРИВАТИВЫ"
+},
+{
+"data": 0,
+"group": 5,
+"cntr": 0,
+"globalcntr": 11,
+"title": "РЫНОК МЕТАЛЛОВ И ТОВАРОВ"
+},
+{
+"data": 0,
+"group": 5,
+"cntr": 1,
+"globalcntr": 12,
+"title": "Нефть и газ"
+},
+{
+"data": 0,
+"group": 5,
+"cntr": 2,
+"globalcntr": 13,
+"title": "Цветные металлы"
+},
+{
+"data": 0,
+"group": 5,
+"cntr": 3,
+"globalcntr": 14,
+"title": "Сельское хозяйство"
+},
+{
+"data": 32,
+"group": 6,
+"cntr": 0,
+"globalcntr": 15,
+"title": "ИНДЕКСЫ"
+}
+]
