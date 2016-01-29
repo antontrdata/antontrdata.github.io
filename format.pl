@@ -10,6 +10,9 @@ or die "cannot open output file \n$!\n";
 open(my $output2, ">", "Stat.json") 
 or die "cannot open output file \n$!\n";
 
+open(my $output3, ">", "Textures.json") 
+or die "cannot open output file \n$!\n";
+
 
 print $output "[\n";
 
@@ -22,6 +25,10 @@ my $max_value = 0;
 my $i = 0;
 my @value_array;
 my @date_array;
+
+my @min_array;
+my @max_array;
+
 
 my $new_line;
 while( defined($new_line = <$input>) )
@@ -75,21 +82,47 @@ print $output2 "\"minValue\": ".$min_value.",\n";
 print $output2 "\"maxValue\": ".$max_value."\n";
 print $output2 "}\n]\n";
 
-my $k = 0;
-my $current_date = -1;
 
-for (my $j=0;$j<$date_array;$j++)
+my $current_date = -1;
+my $cntr = 0;
+
+print $output3 "[\n";
+for (my $j=0;$j<@date_array;$j++)
 {
-	if ($current_date < date_array[$j])
+	if ($current_date < $date_array[$j])
 	{
-		$min_array[$k] = $value_array[$j];
-		$max_array[$k] = $value_array[$j];
-		$current_date = date_array[$j];
+		if ($current_date > -1)
+		{
+			print $output3 "{\n";
+			print $output3 "\"date\": ".$current_date.",\n";
+			print $output3 "\"minValue\": ".$min_array[$cntr].",\n";
+			print $output3 "\"maxValue\": ".$max_array[$cntr]."\n";
+			print $output3 "},\n";
+		}
+
+		$min_array[$cntr] = $value_array[$j];
+		$max_array[$cntr] = $value_array[$j];
+		$current_date = $date_array[$j];
+	}
+	else
+	{
+		if ($min_array[$cntr] > $value_array[$j])
+		{
+			$min_array[$cntr] = $value_array[$j];
+		}
+		if ($max_array[$cntr] < $value_array[$j])
+		{
+			$max_array[$cntr] = $value_array[$j];
+		}
+
 	}
 }
 
-
-
+print $output3 "{\n";
+print $output3 "\"date\": ".$current_date.",\n";
+print $output3 "\"minValue\": ".$min_array[$cntr].",\n";
+print $output3 "\"maxValue\": ".$max_array[$cntr]."\n";
+print $output3 "}\n]\n";
 
 close ($input);
 close ($output);

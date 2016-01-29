@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://riccardoscalco.github.io/textures/textures.min.js"></script>
+
 <title>Totalizator</title>
 </head>
 
@@ -53,6 +55,11 @@ var maxValue = 46+1;//.46;
 var firstDay = "22 декабря";
 var lastDay = "20 января";
 
+
+d3.json("Textures.json", function(data) {
+  drawTexture(data);
+});
+
 d3.json("Stat.json", function(data) {
   drawBackground(data);
 });
@@ -61,10 +68,37 @@ d3.json("Totalizator.json", function(data) {
   drawData(data);
 });
 
-d3.select("svg").selectAll("rect")
-.on("click", function(){
-d3.selectAll("g").remove();
-});
+
+//d3.selectAll("rect")
+//.on("click", function(){
+//d3.selectAll("g").remove();
+//});
+
+
+
+function drawTexture (data){
+
+var t = textures.lines()
+.size(8)
+.strokeWidth(3)
+.stroke("#cccccc");
+
+
+var texture = d3.select("svg").selectAll("r2")
+.data(data).enter()
+.append("svg");
+
+texture.call(t);
+
+texture.append("rect")
+.attr("x",function(d,i) {return horizShift + i*width/(daysAmount+2)} )
+.attr("y",function(d) {return height-vertMult*(d.maxValue-minValue)})
+.attr("width", width/(daysAmount+2))
+.attr("height",function(d) {return vertMult*(d.maxValue-d.minValue)})
+.style("fill", t.url());
+
+}
+
 
 function drawBackground (data){
 
@@ -133,11 +167,23 @@ var circle = d3.select("svg").selectAll("c")
 .attr("fill","#27aae1")
 .attr("opacity",0.9)
 .attr("r", 10)
-.on("mouseover", function(d,i){d3.select(this).transition().attr("r",15).duration(150)})
-.on("mouseout", function(d,i){d3.select(this).transition().attr("r",10).duration(150)})
+//.on("mouseover", function(d,i){d3.select(this).transition().attr("r",15).duration(150)})
+//.on("mouseout", function(d,i){d3.select(this).transition().attr("r",10).duration(150)})
 .attr("cx",function(d){return horizShift + d.Date*width/(16+2)+d.Time*width/(16+2)/24})
 .attr("cy",function(d){return height-vertMult*(d.Value-minValue)})
-.on("click", function(d){drawDetails(horizShift + d.Date*width/(16+2)+d.Time*width/(16+2)/24,height-vertMult*(d.Value-minValue),d.Name,d.Company,d.Value)});
+//.on("click", function(d){drawDetails(horizShift + d.Date*width/(16+2)+d.Time*width/(16+2)/24,height-vertMult*(d.Value-minValue),d.Name,d.Company,d.Value)});
+.on("mouseover", function(d,i){
+  d3.select(this).transition().attr("r",15).duration(150);
+  drawDetails(horizShift + d.Date*width/(16+2)+d.Time*width/(16+2)/24,height-vertMult*(d.Value-minValue),d.Name,d.Company,d.Value)})
+.on("mouseout", function(){
+  d3.select(this).transition().attr("r",10).duration(150);
+  d3.selectAll("g").remove();});
+
+
+//d3.selectAll("rect")
+//.on("click", function(){
+//d3.selectAll("g").remove();
+//});
 
 }
 
@@ -145,7 +191,11 @@ function drawDetails (x,y,name,company,value){
 
   if (x > (width/2))
   {
-    x = x-200;
+    x = x-200-15;
+  }
+  else
+  {
+    x = x+15;
   }
 
   if (y > (height/2))
