@@ -146,6 +146,7 @@ var one = d3.format(".0f")
 
 firstDay[i]=1600000000;//data.bets.bid.timestamp[0];
 lastDay[i]=1420070400;
+var pointsAmnt = 0;
 //for (var timestamp in data.bets.bid)
 for (var index in data.bets.bid)
 {
@@ -153,7 +154,7 @@ for (var index in data.bets.bid)
     {firstDay[i]=data.bets.bid[index].timestamp}
   if (lastDay[i]<data.bets.bid[index].timestamp) 
     {lastDay[i]=data.bets.bid[index].timestamp}
-
+  pointsAmnt++;
 }
 
 //var firstDayLocal = new Date(firstDay[i]*1000);
@@ -196,7 +197,7 @@ for (var index in data.bets.bid)
 
       vertMultPreview[i] = 30 / (maxValue[i] - minValue[i]);
       //horizMultPreview[n] = (cellWidth[n] - horizPreviewShift) / (daysAmount[n]+2);
-      horizMultPreview[i] = (width - horizPreviewShift) / (daysAmount[i]+2);
+      horizMultPreview[i] = (width - horizPreviewShift) / pointsAmnt;//(daysAmount[i]+2);
  //   });
 
 
@@ -510,8 +511,8 @@ var lineFunction = d3.svg.line()
 //alert(data.bets.bid);
 
 //showVariable = data.bets.bet;
-d3.select("svg").selectAll("l")
-.data(data.bets.bid).enter()
+d3.select("svg")//.selectAll("l")
+//.data(data.bets.bid).enter()
 //.append("text")
 //.text(data.bets.bet);//function (d) {return zero(d.minValue)})
 
