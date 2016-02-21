@@ -1,16 +1,16 @@
 #!/usr/bin/perl -w
 use strict; use warnings;
 
-open(my $input, "<", "Totalizator.csv") 
+open(my $input, "<", "Totalizator".$ARGV[0].".csv") 
 or die "cannot open input file \n$!\n";	
 
-open(my $output, ">", "Totalizator.json") 
+open(my $output, ">", "Totalizator".$ARGV[0].".json") 
 or die "cannot open output file \n$!\n";
 
-open(my $output2, ">", "Stat.json") 
+open(my $output2, ">", "Stat".$ARGV[0].".json") 
 or die "cannot open output file \n$!\n";
 
-open(my $output3, ">", "Textures.json") 
+open(my $output3, ">", "Textures".$ARGV[0].".json") 
 or die "cannot open output file \n$!\n";
 
 
@@ -21,6 +21,9 @@ my $date_counter = -1;
 
 my $min_value = 10000;
 my $max_value = 0;
+my $first_date;
+my $last_date;
+
 
 my $i = 0;
 my @value_array;
@@ -43,6 +46,15 @@ while( defined($new_line = <$input>) )
 	$tmp[3] =~ s/:/./;
 
 	my @tmp2 = split (";",$tmp[0]);
+
+	if ($i == 0)
+	{
+		$first_date = $tmp[2];
+	}
+	else
+	{
+		$last_date = $tmp[2];
+	}
 
 	if ($old_date ne $tmp[2])
 	{
@@ -78,8 +90,12 @@ print $output "]";
 
 print $output2 "[\n{\n";
 print $output2 "\"daysAmount\": ".$date_counter.",\n";
+print $output2 "\"firstDate\": "."\"".$first_date."\",\n";
+print $output2 "\"lastDate\": "."\"".$last_date."\",\n";
 print $output2 "\"minValue\": ".$min_value.",\n";
-print $output2 "\"maxValue\": ".$max_value."\n";
+print $output2 "\"maxValue\": ".$max_value.",\n";
+print $output2 "\"averageValue\": ".($min_value+($max_value-$min_value)/2).",\n";
+print $output2 "\"votesAmount\": ".$i."\n";
 print $output2 "}\n]\n";
 
 

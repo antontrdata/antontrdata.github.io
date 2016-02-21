@@ -1,0 +1,112 @@
+[
+{
+"date": 0,
+"minValue": 34.0000,
+"maxValue": 34.0000
+},
+{
+"date": 1,
+"minValue": 35.3000,
+"maxValue": 35.3000
+},
+{
+"date": 2,
+"minValue": 29.0800,
+"maxValue": 33.5000
+},
+{
+"date": 3,
+"minValue": 26.1500,
+"maxValue": 26.1500
+},
+{
+"date": 4,
+"minValue": 26.6000,
+"maxValue": 26.6000
+},
+{
+"date": 5,
+"minValue": 23.7000,
+"maxValue": 31.9000
+},
+{
+"date": 6,
+"minValue": 25.8000,
+"maxValue": 32.0000
+},
+{
+"date": 7,
+"minValue": 25.0000,
+"maxValue": 40.0000
+},
+{
+"date": 8,
+"minValue": 33.0000,
+"maxValue": 33.0000
+},
+{
+"date": 9,
+"minValue": 41.5000,
+"maxValue": 41.5000
+},
+{
+"date": 10,
+"minValue": 24.0000,
+"maxValue": 36.8500
+},
+{
+"date": 11,
+"minValue": 29.2500,
+"maxValue": 34.6200
+},
+{
+"date": 12,
+"minValue": 25.0000,
+"maxValue": 35.0000
+},
+{
+"date": 13,
+"minValue": 31.5000,
+"maxValue": 31.5000
+},
+{
+"date": 14,
+"minValue": 34.0000,
+"maxValue": 34.0000
+},
+{
+"date": 15,
+"minValue": 31.2000,
+"maxValue": 34.8000
+},
+{
+"date": 16,
+"minValue": 41.5000,
+"maxValue": 41.5000
+},
+{
+"date": 17,
+"minValue": 34.0000,
+"maxValue": 34.0000
+},
+{
+"date": 18,
+"minValue": 40.1200,
+"maxValue": 40.1200
+},
+{
+"date": 19,
+"minValue": 31.0000,
+"maxValue": 46.4600
+},
+{
+"date": 20,
+"minValue": 35.0000,
+"maxValue": 43.8200
+},
+{
+"date": 21,
+"minValue": 30.0000,
+"maxValue": 42.0000
+}
+]

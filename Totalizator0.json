@@ -1,0 +1,425 @@
+[
+{
+"Name": "Сергей Игнатьев ",
+"Company": "Solo trader",
+"Value": 23.70,
+"Date": 0,
+"Time": 21.19
+
+},
+{
+"Name": "Eugeniy Patkin ",
+"Company": "Solo trader",
+"Value": 27.50,
+"Date": 0,
+"Time": 19.53
+
+},
+{
+"Name": "Alexander Bely ",
+"Company": "Aksioma Investment Company",
+"Value": 27.00,
+"Date": 0,
+"Time": 18.57
+
+},
+{
+"Name": "Alexey Sharapov ",
+"Company": "Solo trader",
+"Value": 25.50,
+"Date": 0,
+"Time": 10.45
+
+},
+{
+"Name": "Evgeny Chushnikov ",
+"Company": "Transstroybank",
+"Value": 31.90,
+"Date": 0,
+"Time": 10.38
+
+},
+{
+"Name": "Alexey Kuritsin ",
+"Company": "Peterburg MFD, JSC",
+"Value": 32.00,
+"Date": 1,
+"Time": 13.56
+
+},
+{
+"Name": "Vladimir Mariy ",
+"Company": "VTB Bank",
+"Value": 25.80,
+"Date": 1,
+"Time": 12.09
+
+},
+{
+"Name": "Константин Абравитов ",
+"Company": "Promsvyazbank",
+"Value": 31.00,
+"Date": 2,
+"Time": 18.26
+
+},
+{
+"Name": "Артур Элефтериади ",
+"Company": "Solo trader",
+"Value": 40.00,
+"Date": 2,
+"Time": 15.25
+
+},
+{
+"Name": "Aleksey Stepovoy ",
+"Company": "Bank Red Gates",
+"Value": 25.00,
+"Date": 2,
+"Time": 14.59
+
+},
+{
+"Name": "Yaroslav Yatsenko ",
+"Company": "Solo trader",
+"Value": 33.00,
+"Date": 3,
+"Time": 16.12
+
+},
+{
+"Name": "Nina Khruleva ",
+"Company": "FG Dmitry Donskoy",
+"Value": 41.50,
+"Date": 4,
+"Time": 12.45
+
+},
+{
+"Name": "Laslo Udut ",
+"Company": "VS Bank",
+"Value": 28.15,
+"Date": 5,
+"Time": 17.42
+
+},
+{
+"Name": "Sergey Bunakov ",
+"Company": "Bank Soyuzny",
+"Value": 27.00,
+"Date": 5,
+"Time": 17.09
+
+},
+{
+"Name": "Anton Zhilinsky ",
+"Company": "START Development",
+"Value": 36.85,
+"Date": 5,
+"Time": 12.36
+
+},
+{
+"Name": "Аleksandr Debelyy ",
+"Company": "Solo trader",
+"Value": 30.30,
+"Date": 5,
+"Time": 12.12
+
+},
+{
+"Name": "Andrii Eliyashevskyy ",
+"Company": "VS Bank",
+"Value": 26.88,
+"Date": 5,
+"Time": 11.32
+
+},
+{
+"Name": "Yurii Chmyp ",
+"Company": "VS Bank",
+"Value": 24.00,
+"Date": 5,
+"Time": 11.30
+
+},
+{
+"Name": "Evgeniy Kulagin ",
+"Company": "LOCKO-Bank",
+"Value": 34.50,
+"Date": 6,
+"Time": 18.18
+
+},
+{
+"Name": "Martin Rose ",
+"Company": "GFI Group",
+"Value": 29.25,
+"Date": 6,
+"Time": 17.12
+
+},
+{
+"Name": "Dmitry Yaroshenko ",
+"Company": "Bank Saratov",
+"Value": 34.62,
+"Date": 6,
+"Time": 15.49
+
+},
+{
+"Name": "Viktor Istomin ",
+"Company": "BANK RMP",
+"Value": 30.70,
+"Date": 6,
+"Time": 12.46
+
+},
+{
+"Name": "Yuriy Netesanyy ",
+"Company": "ATLANT-FINANCE",
+"Value": 29.80,
+"Date": 6,
+"Time": 11.12
+
+},
+{
+"Name": "Roman Varenyk ",
+"Company": "Ukrgasbank",
+"Value": 27.60,
+"Date": 7,
+"Time": 19.02
+
+},
+{
+"Name": "Oleg Vyazovetskov ",
+"Company": "Veles Capital",
+"Value": 28.28,
+"Date": 7,
+"Time": 18.44
+
+},
+{
+"Name": "Vadim Kip ",
+"Company": "Solo trader",
+"Value": 25.00,
+"Date": 7,
+"Time": 11.59
+
+},
+{
+"Name": "Natalya Sanyuk ",
+"Company": "Natsyonalnyy Korporativnyy Bank",
+"Value": 35.00,
+"Date": 7,
+"Time": 11.58
+
+},
+{
+"Name": "Danil Yakovenko ",
+"Company": "Solo trader",
+"Value": 31.50,
+"Date": 8,
+"Time": 11.44
+
+},
+{
+"Name": "Евгений Воинков ",
+"Company": "Solo trader",
+"Value": 34.00,
+"Date": 9,
+"Time": 4.48
+
+},
+{
+"Name": "Yevgeniy Forostovets ",
+"Company": "DVBank",
+"Value": 31.20,
+"Date": 10,
+"Time": 15.34
+
+},
+{
+"Name": "Marina Timbay ",
+"Company": "PUMB",
+"Value": 34.80,
+"Date": 10,
+"Time": 14.57
+
+},
+{
+"Name": "Dmitry Kurban ",
+"Company": "PrimSocBank",
+"Value": 41.50,
+"Date": 11,
+"Time": 16.40
+
+},
+{
+"Name": "Aydar Hamzin ",
+"Company": "Devon-Credit",
+"Value": 34.00,
+"Date": 12,
+"Time": 11.23
+
+},
+{
+"Name": "Kadyr Omarov ",
+"Company": "Capital Credit bank",
+"Value": 40.12,
+"Date": 13,
+"Time": 16.10
+
+},
+{
+"Name": "Алексей Пышный ",
+"Company": "Solo trader",
+"Value": 31.00,
+"Date": 14,
+"Time": 23.58
+
+},
+{
+"Name": "Roman Romanyuk ",
+"Company": "Solo trader",
+"Value": 41.12,
+"Date": 14,
+"Time": 17.55
+
+},
+{
+"Name": "Viktor Sizonenko ",
+"Company": "Capital Times",
+"Value": 40.00,
+"Date": 14,
+"Time": 17.34
+
+},
+{
+"Name": "Victoria Tymoshenko ",
+"Company": "AMC Magister",
+"Value": 38.75,
+"Date": 14,
+"Time": 14.20
+
+},
+{
+"Name": "Alexandr Borschuk ",
+"Company": "Platinum Bank",
+"Value": 36.00,
+"Date": 14,
+"Time": 13.48
+
+},
+{
+"Name": "Ekaterina Kolesnikova ",
+"Company": "Vitabank",
+"Value": 35.00,
+"Date": 14,
+"Time": 12.57
+
+},
+{
+"Name": "Dmitry Putin ",
+"Company": "ТААТТА Bank",
+"Value": 46.46,
+"Date": 14,
+"Time": 12.31
+
+},
+{
+"Name": "Ruslan Lienkha ",
+"Company": "",
+"Value": 35.00,
+"Date": 15,
+"Time": 16.30
+
+},
+{
+"Name": "Andrey Barakin ",
+"Company": "Jugra",
+"Value": 43.82,
+"Date": 15,
+"Time": 14.26
+
+},
+{
+"Name": "Royko Igor ",
+"Company": "AMC Amadeus",
+"Value": 36.50,
+"Date": 15,
+"Time": 12.13
+
+},
+{
+"Name": "Vitaliy Zotkin ",
+"Company": "Lanta Bank",
+"Value": 42.10,
+"Date": 15,
+"Time": 10.22
+
+},
+{
+"Name": "Stephen Grutzius ",
+"Company": "Solo trader",
+"Value": 39.00,
+"Date": 15,
+"Time": 5.45
+
+},
+{
+"Name": "Daniel Karpantschof ",
+"Company": "Solo trader",
+"Value": 40.00,
+"Date": 16,
+"Time": 22.33
+
+},
+{
+"Name": "Steb Heheh ",
+"Company": "Solo trader",
+"Value": 40.00,
+"Date": 16,
+"Time": 17.33
+
+},
+{
+"Name": "Alexey Podstavkin ",
+"Company": "Rossiysky Capital",
+"Value": 39.50,
+"Date": 16,
+"Time": 16.33
+
+},
+{
+"Name": "Stanislav Piletskiy ",
+"Company": "Citibank",
+"Value": 30.00,
+"Date": 16,
+"Time": 15.55
+
+},
+{
+"Name": "Olga Lapshina ",
+"Company": "Bank Saint-Petersburg",
+"Value": 42.00,
+"Date": 16,
+"Time": 14.28
+
+},
+{
+"Name": "Maksim Kostenchuk ",
+"Company": "Pivdennyi Bank",
+"Value": 32.00,
+"Date": 16,
+"Time": 12.58
+
+},
+{
+"Name": "Aleksandr Prisyazhnyuk ",
+"Company": "Promsvyazbank",
+"Value": 40.50,
+"Date": 16,
+"Time": 12.56
+}
+]

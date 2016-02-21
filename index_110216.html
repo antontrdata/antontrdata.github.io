@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://riccardoscalco.github.io/textures/textures.min.js"></script>
+
+<title>Totalizator</title>
+</head>
+
+
+
+<style>
+body{
+position: absolute;
+width: 930px;
+height:1700px; 
+font-family: 'Roboto', sans-serif;
+}
+
+svg {
+width: 100%;
+height: 100%;
+left: 0;
+}
+
+instrument{
+position: absolute;
+}
+</style>
+
+<body>
+<svg>
+    <rect width="100%" height="100%" style="opacity:0"></rect>
+</svg>
+
+<script>
+
+var TYPE = "site";
+
+var width;
+var bigNumbersDistance;
+var bigNumbersSize;
+var horizPreviewShift;
+
+
+if (TYPE == "site")
+{
+  width = 930;
+  bigNumbersDistance = 100;
+  bigNumbersSize = 26;
+  horizPreviewShift = 450;
+}
+else
+{
+  width = 646;
+  bigNumbersDistance = 80;
+  bigNumbersSize = 20;
+  horizPreviewShift = 400;
+}
+
+
+
+
+var height = 350;//350;
+var moduleDistance = height + 70;
+
+var horizShift = 20;
+
+var daysAmount = new Array();// = 16;
+
+var minValue = new Array();// = 20;//.70;
+var vertMult = new Array();// = 8;
+var vertMultPreview = new Array();// = 8;
+var horizMultPreview = new Array();
+var horizGridStep = new Array();
+
+var bigNumberColor = 0.75;
+
+var cellWidth = new Array();
+
+var maxValue = new Array();//= 46;//.46;
+var firstDay = new Array();// = "22 декабря";
+var lastDay = new Array();// = "20 января";
+
+var vertPreviewShift = 260;
+var vertBigNumbersShift = height - 60;
+var vertTitleShift = height - 30;
+
+var textTitle = new Array();
+var textMin = new Array();
+var textMax = new Array();
+var textAvg = new Array();
+var textFirstDate = new Array();
+var textLastDate = new Array();
+var textCount = new Array();
+
+var data;
+var stat;
+
+drawAll(0);
+drawAll(1);
+drawAll(2);
+
+d3.json("Labels_RU.json", function(data) {
+  drawLabels(data);
+});
+
+
+
+function drawAll (n){
+
+  d3.json("Stat".concat(n,".json"), function(data) {
+    var zero = d3.format(".0f")
+
+    data.forEach(function(d){
+      daysAmount[n] = d.daysAmount;
+      firstDay[n] = d.firstDate;
+      lastDay[n] = d.lastDate;
+      minValue[n] = 10*zero(d.minValue/10);
+      maxValue[n] = 10*zero(d.maxValue/10);
+
+      var deltaValue = d.maxValue - d.minValue;
+      if (deltaValue <= 10) { horizGridStep[n] = 2; }
+      else if (deltaValue <= 30) { horizGridStep[n] = 5; }
+      else if (deltaValue <= 50) { horizGridStep[n] = 10; }
+      else if (deltaValue <= 100) { horizGridStep[n] = 20; }
+      else { horizGridStep[n] = 30; }
+
+      if (maxValue[n] < d.maxValue)
+      {
+        //maxValue[n] = maxValue[n] + horizGridStep[n];
+      }
+
+      // *1 WTF!!! 
+      maxValue[n] = horizGridStep[n] * ( zero((maxValue[n] - minValue[n]) / horizGridStep[n])*1 ) + minValue[n];
+      vertMult[n] = (height - 110) / (maxValue[n] - minValue[n]);  
+      cellWidth[n] = width / (daysAmount[n]+2);
+
+      vertMultPreview[n] = 30 / (maxValue[n] - minValue[n]);
+      //horizMultPreview[n] = (cellWidth[n] - horizPreviewShift) / (daysAmount[n]+2);
+      horizMultPreview[n] = (width - horizPreviewShift) / (daysAmount[n]+2);
+    });
+
+
+    d3.json("Textures".concat(n,".json"), function(data) {
+      drawTexture(data,stat,n);
+    });
+
+    d3.json("Stat".concat(n,".json"), function(data) {
+      drawBackground(data,n);
+    });
+
+    d3.json("Totalizator".concat(n,".json"), function(data) {
+      drawData(data,n);
+    });
+
+
+
+  });
+
+// });
+
+}
+
+
+//d3.selectAll("rect")
+//.on("click", function(){
+//d3.selectAll("g").remove();
+//});
+
+function drawLabels (data){
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight","bold")
+.attr("font-size",30)
+.text(function(d) {return d.title})  
+.attr("x",horizShift)
+.attr("y",function (d,i) {return (i*moduleDistance + height - vertTitleShift)})
+.attr("opacity",bigNumberColor);
+
+
+// big statistical numbers
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",12)
+.text(function(d) {return d.min})  
+.attr("x",horizShift)
+.attr("y",function (d,i) {return (i*moduleDistance + height - vertBigNumbersShift)})
+.attr("opacity",bigNumberColor);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",12)
+.text(function(d) {return d.max}) 
+.attr("x",horizShift+bigNumbersDistance)
+.attr("y",function (d,i) {return (i*moduleDistance + height  - vertBigNumbersShift)})
+.attr("opacity",bigNumberColor);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",12)
+.text(function(d) {return d.avg})  
+.attr("x",horizShift+2*bigNumbersDistance)
+.attr("y",function (d,i) {return (i*moduleDistance + height - vertBigNumbersShift)})
+.attr("opacity",bigNumberColor);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",12)
+.text(function(d) {return d.count})  
+.attr("x",horizShift+3*bigNumbersDistance)
+.attr("y",function (d,i) {return (i*moduleDistance + height - vertBigNumbersShift)})
+.attr("opacity",bigNumberColor);
+
+// X labels
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",12)
+.text(function(d) {return d.firstDate})  
+.attr("x",horizShift)
+.attr("y",function (d,i){return i*moduleDistance + height + 15})
+.attr("opacity",0.5);
+
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",12)
+.text(function(d) {return d.lastDate})  
+.attr("x",width-70)
+.attr("y",function (d,i){return i*moduleDistance + height + 15})
+.attr("opacity",0.5);
+
+}
+
+
+function drawTexture (data,stat,n){
+
+// texture fill
+var t = textures.lines()
+.size(8)
+.strokeWidth(3)
+.stroke("#cccccc");
+
+var texture = d3.select("svg").selectAll("r")
+.data(data).enter()
+.append("svg");
+
+texture.call(t);
+
+texture.append("rect")
+.attr("x",function(d,i,stat) {return horizShift + i*cellWidth[n]} )
+.attr("y",function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
+.attr("width", cellWidth[n])
+.attr("height",function(d) {return vertMult[n]*(d.maxValue-d.minValue)})
+.style("fill", t.url());
+
+
+
+
+// top blue line
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("line")
+.attr("x1",function(d,i) {return horizShift + i*width/(daysAmount[n]+2)} )
+.attr("y1",function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
+.attr("x2",function(d,i) {return horizShift + (i+1)*width/(daysAmount[n]+2)} )
+.attr("y2",function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
+.attr("stroke-width",1)
+.attr("stroke","#007eb3");
+
+// bottom blue line
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("line")
+.attr("x1",function(d,i) {return horizShift + i*width/(daysAmount[n]+2)} )
+.attr("y1",function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
+.attr("x2",function(d,i) {return horizShift + (i+1)*width/(daysAmount[n]+2)} )
+.attr("y2",function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
+.attr("stroke-width",1)
+.attr("stroke","#007eb3");
+
+//preview polyline
+var lineFunction = d3.svg.line()
+.x(function(d) { return horizPreviewShift+d.date*horizMultPreview[n]; })//425
+.y(function(d) { return n*moduleDistance + height - vertPreviewShift - vertMultPreview[n]*(d.minValue+0.5*(d.maxValue-d.minValue)-minValue[n]); })
+.interpolate("linear");
+
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("path")
+.attr("d", lineFunction(data))
+.attr("stroke-width",3)
+.attr("stroke","#ffb000")
+.attr("fill","none");
+
+
+//d3.json("Stat.json", function(stat) {
+//});
+
+
+}
+
+
+function drawBackground (data,n){
+
+// big statistical numbers
+var zero = d3.format(".4s")
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",bigNumbersSize)//20)//26)
+.text(function (d) {return zero(d.minValue)})
+//.text(12.234.2)
+//.format(".2")  
+.attr("x",horizShift)
+.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("opacity",bigNumberColor);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",bigNumbersSize)//20)//26)
+.text(function (d) {return zero(d.maxValue)})  
+.attr("x",horizShift+bigNumbersDistance)
+.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("opacity",bigNumberColor);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",bigNumbersSize)//20)//26)
+.text(function (d) {return zero(d.minValue+0.5*(d.maxValue-d.minValue))})  
+.attr("x",horizShift+2*bigNumbersDistance)
+.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("opacity",bigNumberColor);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",800)
+.attr("font-size",bigNumbersSize)//20)//26)
+.text(function (d) {return d.votesAmount})  
+.attr("x",horizShift+3*bigNumbersDistance)
+.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("opacity",bigNumberColor);
+
+//average for polyline
+d3.select("svg").selectAll("l")
+.data(data).enter()
+.append("line")
+.attr("x1",horizPreviewShift)
+.attr("x2",width)
+.attr("y1",function (d) { return n*moduleDistance + height - vertPreviewShift - vertMultPreview[n]*(d.averageValue-minValue[n])} )
+.attr("y2",function (d) { return n*moduleDistance + height - vertPreviewShift - vertMultPreview[n]*(d.averageValue-minValue[n])} )
+.attr("stroke-width",1)
+.attr("stroke","#000000")
+.attr("opacity",0.3);
+
+d3.select("svg").selectAll("t")
+.data(data).enter()
+.append("text")
+.attr("font-weight",500)
+.attr("font-size",10)
+.text("Среднее")  
+.attr("x",horizPreviewShift)
+.attr("y",function (d) { return n*moduleDistance + height - vertPreviewShift - 5 - vertMultPreview[n]*(d.averageValue-minValue[n])} )
+.attr("opacity",0.3);
+
+
+//horizShift + d.Date*cellWidth[n]+0*d.Time*cellWidth[n]/24}
+
+
+// vertical grid
+for (i=0;i<daysAmount[n]+3;i++)
+{
+  d3.select("svg").append("line")
+  .attr("x1",horizShift + i*cellWidth[n])
+  .attr("x2",horizShift + i*cellWidth[n])
+  .attr("y1",n*moduleDistance + height - vertMult[n]*(maxValue[n]-minValue[n]))
+  .attr("y2",n*moduleDistance + height)//1035)
+  .attr("stroke-width",1)
+  .attr("stroke","#000000")
+  .attr("opacity",0.3);
+}
+
+// horizontal grid
+for (j=0;j<=(maxValue[n]-minValue[n]);j=j+horizGridStep[n])
+{
+  d3.select("svg").append("line")
+  .attr("x1",0)
+  .attr("x2",width)
+  .attr("y1",n*moduleDistance + height - j*vertMult[n])
+  .attr("y2",n*moduleDistance + height - j*vertMult[n])
+  .attr("stroke-width",1)
+  .attr("stroke","#000000")
+  .attr("opacity",0.3);
+
+  d3.select("svg").append("text")
+  .attr("x",0)
+  .attr("y",n*moduleDistance + height - j*vertMult[n] - 5)
+  .attr("font-weight",800)
+  .attr("font-size",12)
+  .attr("opacity",0.5)
+  .text(minValue[n]+j);
+}
+//n*moduleDistance + height-vertMult[n]*(d.Value-minValue[n])
+} 
+
+
+function drawData (data,n){
+
+var circle = d3.select("svg").selectAll("c")
+.data(data).enter()
+//.append("a")
+//.attr("xlink:href", function(d) {return "#"+d.link})
+.append("circle")
+//.attr("id",function(d,i) {return "circle"+shift+d.globalcntr})
+//.attr("stroke-width",0.5)
+//.attr("stroke","#222222")
+.attr("fill","#27aae1")
+.attr("opacity",0.9)
+.attr("r", 10)
+//.on("mouseover", function(d,i){d3.select(this).transition().attr("r",15).duration(150)})
+//.on("mouseout", function(d,i){d3.select(this).transition().attr("r",10).duration(150)})
+.attr("cx",function(d){return horizShift + d.Date*cellWidth[n]+d.Time*cellWidth[n]/24})  
+.attr("cy",function(d){return n*moduleDistance + height-vertMult[n]*(d.Value-minValue[n])})
+//.on("click", function(d){drawDetails(horizShift + d.Date*width/(16+2)+d.Time*width/(16+2)/24,height-vertMult*(d.Value-minValue),d.Name,d.Company,d.Value)});
+.on("mouseover", function(d,i){
+  d3.select(this).transition().attr("r",15).attr("fill","#007eb3").duration(150);
+  drawDetails(horizShift + d.Date*cellWidth[n]+d.Time*cellWidth[n]/24,n*moduleDistance + height-vertMult[n]*(d.Value-minValue[n]),d.Name,d.Company,d.Value)})
+.on("mouseout", function(){
+  d3.select(this).transition().attr("r",10).attr("fill","#27aae1").duration(150);
+  d3.selectAll("g").remove();});
+
+
+//d3.selectAll("rect")
+//.on("click", function(){
+//d3.selectAll("g").remove();
+//});
+
+}
+
+function drawDetails (x,y,name,company,value){
+
+  if (x > (width/2))
+  {
+    x = x-200-15;
+  }
+  else
+  {
+    x = x+15;
+  }
+
+  if (y > (height/2))
+  {
+    y = y-85;
+  }
+
+
+  d3.selectAll("g").remove();
+
+  var group=d3.select("svg").append("g");
+
+  var rectangle=group.append("rect")
+  .attr("x",x)
+  .attr("y",y)
+  .attr("rx",3)
+  .attr("ry",3)
+  .attr("width",200)
+  .attr("height",85)
+  .attr("fill","#007eb3");
+//  .attr("stroke","#ffffff")
+//  .attr("stroke-width",1);
+
+var name=group.append("text")
+.text(name)
+.attr("width",180)
+.attr("height",100)
+//.attr("style","letter-spacing:1;")
+.attr("x",x+15)
+.attr("y",y+25)
+.attr("fill","#ffffff")
+.attr("font-weight",500)
+.attr("font-size","16");
+
+var name=group.append("text")
+.text(company)
+.attr("width",180)
+.attr("height",100)
+.attr("x",x+15)
+.attr("y",y+40)
+.attr("fill","#ffffff")
+.attr("font-weight",200)
+.attr("font-size","12");
+
+
+var value=group.append("text")
+.text(value)
+.attr("width",180)
+.attr("height",100)
+//.attr("style","letter-spacing:1;")
+.attr("x",x+15)
+.attr("y",y+70)
+.attr("fill","#ffffff")
+.attr("font-weight",700)
+.attr("font-size","28");
+
+
+}
+
+
+</script>
+
+</body>
+</html>

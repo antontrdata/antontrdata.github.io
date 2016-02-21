@@ -1,0 +1,87 @@
+[
+{
+"date": 0,
+"minValue": 23.70,
+"maxValue": 31.90
+},
+{
+"date": 1,
+"minValue": 25.80,
+"maxValue": 32.00
+},
+{
+"date": 2,
+"minValue": 25.00,
+"maxValue": 40.00
+},
+{
+"date": 3,
+"minValue": 33.00,
+"maxValue": 33.00
+},
+{
+"date": 4,
+"minValue": 41.50,
+"maxValue": 41.50
+},
+{
+"date": 5,
+"minValue": 24.00,
+"maxValue": 36.85
+},
+{
+"date": 6,
+"minValue": 29.25,
+"maxValue": 34.62
+},
+{
+"date": 7,
+"minValue": 25.00,
+"maxValue": 35.00
+},
+{
+"date": 8,
+"minValue": 31.50,
+"maxValue": 31.50
+},
+{
+"date": 9,
+"minValue": 34.00,
+"maxValue": 34.00
+},
+{
+"date": 10,
+"minValue": 31.20,
+"maxValue": 34.80
+},
+{
+"date": 11,
+"minValue": 41.50,
+"maxValue": 41.50
+},
+{
+"date": 12,
+"minValue": 34.00,
+"maxValue": 34.00
+},
+{
+"date": 13,
+"minValue": 40.12,
+"maxValue": 40.12
+},
+{
+"date": 14,
+"minValue": 31.00,
+"maxValue": 46.46
+},
+{
+"date": 15,
+"minValue": 35.00,
+"maxValue": 43.82
+},
+{
+"date": 16,
+"minValue": 30.00,
+"maxValue": 42.00
+}
+]
