@@ -116,7 +116,8 @@ $.getJSON("trdata.json", function(json) {
 */
 
 
-d3.json("trdata.json", function(error,data) {
+//d3.json("trdata.json", function(error,data) {
+d3.json("https://api.trdata.com/totalizer/allinfo?ukey=6744e59200a1c16210bcd5d0c7b608d", function(error,data) {
  // var d = data.data;
  var i=0;
  for (var id in data.data)
