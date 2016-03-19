@@ -189,7 +189,7 @@ for (var index in data.bets.bid)
 
 
       daysAmount[i] = timeDayCounter(i,firstDay[i],lastDay[i]);
-      minValue[i] = data.bets.betMin;//10*zero(data.bets.betMin/10);
+      minValue[i] = Math.floor(data.bets.betMin);//10*zero(data.bets.betMin/10);
       maxValue[i] = data.bets.betMax;
 
       var deltaValue = data.bets.betMax - data.bets.betMin;
