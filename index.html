@@ -186,24 +186,31 @@ for (var index in data.bets.bid)
     {lastDay[i]=data.bets.bid[index].timestamp}
   pointsAmnt++;
 }
-
-
-      daysAmount[i] = timeDayCounter(i,firstDay[i],lastDay[i]);
       minValue[i] = Math.floor(data.bets.betMin);//10*zero(data.bets.betMin/10);
       maxValue[i] = data.bets.betMax;
 
+      daysAmount[i] = timeDayCounter(i,firstDay[i],lastDay[i]);
+
       var deltaValue = data.bets.betMax - data.bets.betMin;
-      if (deltaValue <= 0.2) { horizGridStep[i] = 0.02; precision[i]=2;}
+      if (deltaValue <= 0.2) { horizGridStep[i] = 0.05; precision[i]=2;}
       else if (deltaValue <= 0.4) { horizGridStep[i] = 0.1; precision[i]=1;}
       else if (deltaValue <= 1) { horizGridStep[i] = 0.2; precision[i]=1;}
-      else if (deltaValue <= 7) { horizGridStep[i] = 0.5; precision[i]=1;}
-      else if (deltaValue <= 10) { horizGridStep[i] = 2; precision[i]=0;}
+      else if (deltaValue <= 4) { horizGridStep[i] = 0.5; precision[i]=1;}
+      else if (deltaValue <= 7.5) { horizGridStep[i] = 1; precision[i]=1;}
+      else if (deltaValue <= 10) { horizGridStep[i] = 2; precision[i]=1;}
       else if (deltaValue <= 30) { horizGridStep[i] = 5; precision[i]=0;}
       else if (deltaValue <= 50) { horizGridStep[i] = 10; precision[i]=0;}
       else if (deltaValue <= 100) { horizGridStep[i] = 20; precision[i]=0;}
       else { horizGridStep[i] = 30; precision[i]=0;}
 //alert(maxValue[i])
-      maxValue[i] = horizGridStep[i] * ( zero((maxValue[i] - minValue[i]) / horizGridStep[i])*1 ) + minValue[i];
+      
+      if (deltaValue > 2)
+      {
+        maxValue[i] = Math.ceil(data.bets.betMax);
+        deltaValue = data.bets.betMax - data.bets.betMin;
+      }
+
+      maxValue[i] = horizGridStep[i] * ( Math.ceil((maxValue[i] - minValue[i]) / horizGridStep[i])*1 ) + minValue[i];//zero
       vertMult[i] = (height - 110) / (maxValue[i] - minValue[i]);  
 
       if (daysAmount[i] > 5)
@@ -212,7 +219,7 @@ for (var index in data.bets.bid)
       }
       else
       {
-        cellWidth[i] = width / (daysAmount[i]+1);
+        cellWidth[i] = width / (daysAmount[i]+2);
       }
 
       vertMultPreview[i] = 30 / (maxValue[i] - minValue[i]);
@@ -688,7 +695,7 @@ for (i=0;i<daysAmount[n]+3;i++)
 
   var one = d3.format("."+precision[n]+"f")
 // horizontal grid
-for (j=0;j<=(maxValue[n]-minValue[n]);j=j+horizGridStep[n])
+for (j=0;j<=(maxValue[n]-minValue[n])+0.5*horizGridStep[n];j=j+horizGridStep[n])
 {
   d3.select("svg").append("line")
   .attr("x1",0)
