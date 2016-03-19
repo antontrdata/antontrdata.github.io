@@ -9,22 +9,17 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://riccardoscalco.github.io/textures/textures.min.js"></script>
 
-<title>Totalizator</title>
 </head>
 
 
 
 <style>
 body{
-position: absolute;
-width: 930px;
-height:3500px; 
 font-family: 'Roboto', sans-serif;
 }
 
 svg {
-width: 100%;
-height: 100%;
+width: 930px;
 left: 0;
 }
 
@@ -68,16 +63,17 @@ else
 
 
 
-var height = 350;//350;
-var moduleDistance = height + 70;
+var height = 350;
+var moduleDistance = height + 50;
 
 var horizShift = 30;
+var subtitleShift = 70;
 
-var daysAmount = new Array();// = 16;
+var daysAmount = new Array();
 
-var minValue = new Array();// = 20;//.70;
-var vertMult = new Array();// = 8;
-var vertMultPreview = new Array();// = 8;
+var minValue = new Array();
+var vertMult = new Array();
+var vertMultPreview = new Array();
 var horizMultPreview = new Array();
 var horizGridStep = new Array();
 
@@ -85,9 +81,9 @@ var bigNumberColor = 0.75;
 
 var cellWidth = new Array();
 
-var maxValue = new Array();//= 46;//.46;
-var firstDay = new Array();// = "22 декабря";
-var lastDay = new Array();// = "20 января";
+var maxValue = new Array();
+var firstDay = new Array();
+var lastDay = new Array();
 
 var vertPreviewShift = 270;//260;
 var vertBigNumbersShift = height - 60;
@@ -104,50 +100,75 @@ var textCount = new Array();
 var data;
 var stat;
 
-/*
-var JSON = $.getJSON("trdata.json");
-drawLabels(JSON);
-*/
-
-/*
-$.getJSON("trdata.json", function(json) {
-  drawLabels(json);
-});
-*/
-
-
-//d3.json("trdata.json", function(error,data) {
 d3.json("https://api.trdata.com/totalizer/allinfo?ukey=6744e59200a1c16210bcd5d0c7b608d", function(error,data) {
- // var d = data.data;
- var i=0;
- for (var id in data.data)
- {
-    drawAll(i,data.data[id]);
-    drawBackground(i,data.data[id]);
-  drawLabels(i,data.data[id]);
+
+var timeNow = Date.now();
+
+d3.select("svg")//.selectAll("t")
+.append("text")
+.attr("font-weight",900)
+.attr("font-size",26)
+.text(function(){if (LANG=="en") {return "CURRENT FORECASTS";} else {return "ТЕКУЩИЕ ПРОГНОЗЫ";}})
+.attr("x",horizShift)
+.attr("y",60)
+.attr("opacity",0.2);
 
 
-  i++;
-}
+  var i=0;
+  for (var id in data.data)
+  {
+    var finishVotingTime = timeConverterText(data.data[id].close_ts);
+    //if (data.data[id].id == 9896)//
+    if ((data.data[id].id != 9500) && (timeNow <= 1000*data.data[id].close_ts) && (data.data[id].bets.bid.length > 2))
+    {
+      drawAll(i,1,data.data[id]);
+      drawBackground(i,1,data.data[id]);
+      drawLabels(i,1,data.data[id]);
+      i++;
+    }
+
+  }
+
+d3.select("svg")//.selectAll("t")
+.append("text")
+.attr("font-weight",900)
+.attr("font-size",26)
+.text(function(){if (LANG=="en") {return "PAST FORECASTS";} else {return "ПРОШЛЫЕ ПРОГНОЗЫ";}})
+.attr("x",horizShift)
+.attr("y",i*moduleDistance + 2*60)
+.attr("opacity",0.2);
+
+  var j=0;
+  for (var id in data.data)
+  {
+    var finishVotingTime = timeConverterText(data.data[id].close_ts);
+    //if (data.data[id].id == 9896)//
+    if ((data.data[id].id != 9500) && (timeNow > 1000*data.data[id].close_ts) && (data.data[id].bets.bid.length > 2))
+    {
+      drawAll(j+i,2,data.data[id]);
+      drawBackground(j+i,2,data.data[id]);
+      drawLabels(j+i,2,data.data[id]);
+      j++;
+    }
+
+  }
+
+    d3.select("svg").attr("height",(j+i)*moduleDistance);
+
+
 });
 
 
-//d3.json("Labels_RU.json", function(data) {
-//  drawLabels(data);
-//});
-
-
-
-function drawAll (i,data){
+function drawAll (i,nk,data){
 
 var zero = d3.format(".0f")
 var one = d3.format(".0f")
 
 
-firstDay[i]=1600000000;//data.bets.bid.timestamp[0];
+firstDay[i]=1600000000;
 lastDay[i]=1420070400;
 var pointsAmnt = 0;
-//for (var timestamp in data.bets.bid)
+
 for (var index in data.bets.bid)
 {
   if (firstDay[i]>data.bets.bid[index].timestamp) 
@@ -157,32 +178,22 @@ for (var index in data.bets.bid)
   pointsAmnt++;
 }
 
-//var firstDayLocal = new Date(firstDay[i]*1000);
-//var firstMonth = firstDayLocal.getFullYear();
-//alert(firstMonth)
 
+      daysAmount[i] = timeDayCounter(i,firstDay[i],lastDay[i]);
+      minValue[i] = data.bets.betMin;//10*zero(data.bets.betMin/10);
+      maxValue[i] = data.bets.betMax;
 
-//alert(firstDay[i]);
-
-
-//    data.bets.bid.forEach(function(d){
- //     firstDay[i] = //1;//data.open_ts;//REPLACE
- //     lastDay[i] = 10;//data.close_ts;//REPLACE
-      daysAmount[i] = timeDayCounter(i,firstDay[i],lastDay[i]);//REPLACE
-      minValue[i] = 10*zero(data.bets.betMin/10);//minValue/10);
-      maxValue[i] = data.bets.betMax;//data.bets.betMax;//10*zero(data.bets.betMax/10);
-//
-//alert(daysAmount[i]);
       var deltaValue = data.bets.betMax - data.bets.betMin;
-      if (deltaValue <= 7) { horizGridStep[i] = 0.5; }
+      if (deltaValue <= 0.2) { horizGridStep[i] = 0.02; }
+      else if (deltaValue <= 0.4) { horizGridStep[i] = 0.1; }
+      else if (deltaValue <= 2) { horizGridStep[i] = 0.2; }
+      else if (deltaValue <= 7) { horizGridStep[i] = 0.5; }
       else if (deltaValue <= 10) { horizGridStep[i] = 2; }
       else if (deltaValue <= 30) { horizGridStep[i] = 5; }
       else if (deltaValue <= 50) { horizGridStep[i] = 10; }
       else if (deltaValue <= 100) { horizGridStep[i] = 20; }
       else { horizGridStep[i] = 30; }
-
-
-      // *1 WTF!!! 
+//alert(maxValue[i])
       maxValue[i] = horizGridStep[i] * ( zero((maxValue[i] - minValue[i]) / horizGridStep[i])*1 ) + minValue[i];
       vertMult[i] = (height - 110) / (maxValue[i] - minValue[i]);  
 
@@ -196,32 +207,10 @@ for (var index in data.bets.bid)
       }
 
       vertMultPreview[i] = 30 / (maxValue[i] - minValue[i]);
-      //horizMultPreview[n] = (cellWidth[n] - horizPreviewShift) / (daysAmount[n]+2);
-      horizMultPreview[i] = (width - horizPreviewShift) / pointsAmnt;//(daysAmount[i]+2);
- //   });
+      horizMultPreview[i] = (width - horizPreviewShift) / pointsAmnt;
 
-
-/*
-    d3.json("Textures".concat(n,".json"), function(data) {
-      drawTexture(data,stat,n);
-    });
-
-    d3.json("Stat".concat(i,".json"), function(data) {
-      drawBackground(i,data);
-    });
-
-    d3.json("Totalizator".concat(n,".json"), function(data) {
-      drawData(data,n);
-    });
-*/
-//var aa = new Date(UNIX_timestamp * 1000);
-
-//alert (cellWidth[i]);
-//  };
-
-// });
-  drawTexture(i,data);
-  drawData(i,data);
+  drawTexture(i,nk,data);
+  drawData(i,nk,data);
 
 }
 
@@ -234,13 +223,10 @@ function timeConverterText(UNIX_timestamp){
   else
   {months = ['Января','Февраля','Марта','Апреля','Мая','Июня','Июля','Августа','Сентября','Октября','Ноября','Декабря'];}
 
-//  var year = a.getFullYear();
   var month = months[a.getMonth()];
   var date = a.getDate();
-//  var hour = a.getHours();
-//  var min = a.getMinutes();
-//  var sec = a.getSeconds();
-  var time = date + ' ' + month;// + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+
+  var time = date + ' ' + month;
   return time;
 }
 
@@ -249,7 +235,6 @@ function timeDayCounter(n,firstTime, lastTime){
   var fTime = new Date(firstTime * 1000);
   var lTime = new Date(lastTime * 1000);
 
-//  var year = a.getFullYear();
   var fMonth = fTime.getMonth();
   var lMonth = lTime.getMonth();
 
@@ -279,24 +264,20 @@ function timeDayCounter(n,firstTime, lastTime){
 }
 
 
-//d3.selectAll("rect")
-//.on("click", function(){
-//d3.selectAll("g").remove();
-//});
-
-function drawLabels (i,data){
+function drawLabels (i,nk,data){
 
 
 
 d3.select("svg")//.selectAll("t")
 //.data(data).enter()
 .append("text")
-.attr("font-weight","bold")
-.attr("font-size",30)
+//.attr("font-weight","bold")
+.attr("font-weight",300)
+.attr("font-size",24)
 .text(function(){if (LANG=="en"){return data.title_en;}else{return data.title_ru;}})
 //.text(data.data[8993].title_ru)//function(d) {return d.status})//data[tmp].title_ru})  
 .attr("x",horizShift)
-.attr("y",function () {return (i*moduleDistance + height - vertTitleShift)})
+.attr("y",function () {return (i*moduleDistance + nk*subtitleShift + height - vertTitleShift)})
 .attr("opacity",bigNumberColor);
 
 
@@ -308,7 +289,7 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",12)
 .text(function(){if (LANG=="en"){return "Minimum"}else{return"Минимум"}})  
 .attr("x",horizShift)
-.attr("y",i*moduleDistance + height - vertBigNumbersShift)
+.attr("y",i*moduleDistance + nk*subtitleShift + height - vertBigNumbersShift)
 .attr("opacity",bigNumberColor);
 
 d3.select("svg")//.selectAll("t")
@@ -318,7 +299,7 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",12)
 .text(function(){if (LANG=="en"){return "Average"}else{return"Среднее"}})  
 .attr("x",horizShift+bigNumbersDistance)
-.attr("y",function () {return (i*moduleDistance + height  - vertBigNumbersShift)})
+.attr("y",function () {return (i*moduleDistance + nk*subtitleShift + height  - vertBigNumbersShift)})
 .attr("opacity",bigNumberColor);
 
 d3.select("svg")//.selectAll("t")
@@ -328,7 +309,7 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",12)
 .text(function(){if (LANG=="en"){return "Maximum"}else{return"Максимум"}})  
 .attr("x",horizShift+2*bigNumbersDistance)
-.attr("y",function () {return (i*moduleDistance + height - vertBigNumbersShift)})
+.attr("y",function () {return (i*moduleDistance + nk*subtitleShift + height - vertBigNumbersShift)})
 .attr("opacity",bigNumberColor);
 
 /*
@@ -350,7 +331,7 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",12)
 .text(timeConverterText(firstDay[i])) //data.open_ts))  
 .attr("x",horizShift)
-.attr("y",function (){return i*moduleDistance + height + 15})
+.attr("y",function (){return i*moduleDistance + nk*subtitleShift + height + 15})
 .attr("opacity",0.5);
 
 
@@ -362,13 +343,13 @@ d3.select("svg")//.selectAll("t")
 .text(timeConverterText(lastDay[i])) //data.close_ts))  
 .attr("text-align","right")
 .attr("x",width-80)
-.attr("y",function (){return i*moduleDistance + height + 15})
+.attr("y",function (){return i*moduleDistance + nk*subtitleShift + height + 15})
 .attr("opacity",0.5);
 
 }
 
 
-function drawTexture (n,data){
+function drawTexture (n,nk,data){
 
 var first = 1;
 var dateCntr = -1;
@@ -478,21 +459,13 @@ if (arrayMnth[1] >= 0)
     arrayMnth[1] = tmp;
   }
 }
-//10,   9,   8,   7,    4,    3, 2, 24,  23,19,18,  16,   13,12,  11,  5
-//10.25,10.3,10.5,10.5, 10.75,10,11,10.5,11,10,10.5,11,   11,10.5,10.5,10.25
-//11,   11,  11,  11.25,11,   11,11,11,  11,11,10.5,10.75,10,10.5,10.5,11
-
-//alert(arrayValueMin);
-//alert(arrayValueMax);
-
-
 
 
 for (var arrayDateId=0; arrayDateId<arrayDate.length; arrayDateId++)
 {
   var m;
   if (arrayMonths[arrayDateId] == arrayMnth[0]) {m=0;} else {m=1;}
-  drawTextureElement (n,arrayValueMin[arrayDateId],arrayValueMax[arrayDateId],arrayDate[arrayDateId]);//arrayDateId,m);
+  drawTextureElement (n,nk,arrayValueMin[arrayDateId],arrayValueMax[arrayDateId],arrayDate[arrayDateId]);//arrayDateId,m);
 }
 
 
@@ -503,18 +476,13 @@ var tmpAvg = data.bets.betAvg;
 
 //preview polyline
 var lineFunction = d3.svg.line()
-.x(function(d,i) { return horizPreviewShift+/*d.price*/i*horizMultPreview[n]; })//425
-.y(function(d,i) { return n*moduleDistance + height - vertPreviewShift - vertMultPreview[n]*(d.price - tmpAvg); })
-//  0.5*(tmpMax+tmpMin)-minValue[n]); })
+.x(function(d,i) { return horizPreviewShift+i*horizMultPreview[n]; })
+.y(function(d,i) { return n*moduleDistance + nk*subtitleShift + height - vertPreviewShift - vertMultPreview[n]*(d.price - tmpAvg); })
+
 .interpolate("linear");
 
-//alert(data.bets.bid);
 
-//showVariable = data.bets.bet;
-d3.select("svg")//.selectAll("l")
-//.data(data.bets.bid).enter()
-//.append("text")
-//.text(data.bets.bet);//function (d) {return zero(d.minValue)})
+d3.select("svg")
 
 .append("path")
 .attr("d", lineFunction(data.bets.bid))
@@ -522,73 +490,10 @@ d3.select("svg")//.selectAll("l")
 .attr("stroke","#ffb000")
 .attr("fill","none");
 
-
-
-
-/*
-var compressedData = new Array();
-
-for (var element in)
-{
-
-}
-  */
-/*
-//preview polyline
-var lineFunction = d3.svg.line()
-.x( horizPreviewShift + day*horizMultPreview[n]) //function(d) { return horizPreviewShift+d.date*horizMultPreview[n]; })//425
-.y( n*moduleDistance + height - vertPreviewShift - vertMultPreview[n] * (min+0.5*(max-min)-minValue[n])) //function(d) { return n*moduleDistance + height - vertPreviewShift - vertMultPreview[n]*(d.minValue+0.5*(d.maxValue-d.minValue)-minValue[n]); })
-.interpolate("linear");
-*/
-
-//data.bets.bid[index].price
-
-
-
-/*
-
-for(var index in data.bets.bid)
-{
-  var dateCurFull = new Date(data.bets.bid[index].timestamp * 1000);
-  var dateCur = dateCurFull.getDate();
-  var price = data.bets.bid[index].price;
-
-
-  if (dateCur != dateCntr)
-  {
-    if (first != 1)
-    {
-      day++;
-    }
-
-    dateCntr = dateCur;
-    min = price;
-    max = min;
-    first = 0;
-  }
-  else
-  {
-    if (price > max) {max = price;}
-    if (price < min) {min = price;}
-  }
-
 }
 
 
-      drawTextureElement (n,min,max,day);
-*/
-}
-
-
-
-
-//.attr("cx",function(){return horizShift + dateRes*cellWidth[n] + hour*cellWidth[n]/24})  
-//.attr("cy",function(){return n*moduleDistance + height-vertMult[n]*(data.price-minValue[n])})
-
-
-
-
-function drawTextureElement (n,min,max,day,mnth){
+function drawTextureElement (n,nk,min,max,day,mnth){
 
 // texture fill
 var t = textures.lines()
@@ -604,7 +509,7 @@ texture.call(t);
 
 texture.append("rect")
 .attr("x", horizShift + day*cellWidth[n] )
-.attr("y", n*moduleDistance + height-vertMult[n]*(max-minValue[n]))
+.attr("y", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(max-minValue[n]))
 .attr("width", cellWidth[n])
 .attr("height", vertMult[n]*(max-min))
 .style("fill", t.url());
@@ -617,9 +522,9 @@ d3.select("svg")//.selectAll("l")
 //.data(data).enter()
 .append("line")
 .attr("x1", horizShift + day*cellWidth[n]) //i*width/(daysAmount[n]+2)} )
-.attr("y1", n*moduleDistance + height-vertMult[n]*(max-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
+.attr("y1", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(max-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
 .attr("x2", horizShift + (day+1)*cellWidth[n]) //function(d,i) {return horizShift + (i+1)*width/(daysAmount[n]+2)} )
-.attr("y2",n*moduleDistance + height-vertMult[n]*(max-minValue[n])) //function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
+.attr("y2",n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(max-minValue[n])) //function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
 .attr("stroke-width",2)
 .attr("stroke","#007eb3");
 
@@ -628,21 +533,16 @@ d3.select("svg")//.selectAll("l")
 //.data(data).enter()
 .append("line")
 .attr("x1",horizShift + day*cellWidth[n]) //function(d,i) {return horizShift + i*width/(daysAmount[n]+2)} )
-.attr("y1", n*moduleDistance + height-vertMult[n]*(min-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
+.attr("y1", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(min-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
 .attr("x2", horizShift + (day+1)*cellWidth[n]) //function(d,i) {return horizShift + (i+1)*width/(daysAmount[n]+2)} )
-.attr("y2", n*moduleDistance + height-vertMult[n]*(min-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
+.attr("y2", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(min-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
 .attr("stroke-width",2)
 .attr("stroke","#007eb3");
-
-
-//d3.json("Stat.json", function(stat) {
-//});
-
 
 }
 
 
-function drawBackground (n,data){
+function drawBackground (n,nk,data){
 
 // big statistical numbers
 var zero = d3.format(".4s")
@@ -650,33 +550,33 @@ var zero = d3.format(".4s")
 d3.select("svg")//.selectAll("t")
 //.data(data).enter()
 .append("text")
-.attr("font-weight",800)
+.attr("font-weight",700)
 .attr("font-size",bigNumbersSize)//20)//26)
 .text(zero(data.bets.betMin))//function (d) {return zero(d.minValue)})
 //.text(12.234.2)
 //.format(".2")  
 .attr("x",horizShift)
-.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("y",n*moduleDistance + nk*subtitleShift + height - vertBigNumbersShift + 25)
 .attr("opacity",bigNumberColor);
 
 d3.select("svg")//.selectAll("t")
 //.data(data).enter()
 .append("text")
-.attr("font-weight",800)
+.attr("font-weight",700)
 .attr("font-size",bigNumbersSize)//20)//26)
 .text(zero(data.bets.betAvg))//function (d) {return zero(d.maxValue)})  
 .attr("x",horizShift+bigNumbersDistance)
-.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("y",n*moduleDistance + nk*subtitleShift + height - vertBigNumbersShift + 25)
 .attr("opacity",bigNumberColor);
 
 d3.select("svg")//.selectAll("t")
 //.data(data).enter()
 .append("text")
-.attr("font-weight",800)
+.attr("font-weight",700)
 .attr("font-size",bigNumbersSize)//20)//26)
 .text(zero(data.bets.betMax))//function (d) {return zero(d.minValue+0.5*(d.maxValue-d.minValue))})  
 .attr("x",horizShift+2*bigNumbersDistance)
-.attr("y",n*moduleDistance + height - vertBigNumbersShift + 25)
+.attr("y",n*moduleDistance + nk*subtitleShift + height - vertBigNumbersShift + 25)
 .attr("opacity",bigNumberColor);
 /*
 d3.select("svg").selectAll("t")
@@ -690,11 +590,6 @@ d3.select("svg").selectAll("t")
 .attr("opacity",bigNumberColor);
 */
 
-
-//.x(function(d,i) { return horizPreviewShift+/*d.price*/i*horizMultPreview[n]; })//425
-//.y(function(d,i) { return n*moduleDistance + height - vertPreviewShift - vertMultPreview[n]*(d.price - tmpAvg); })
-
-
 //average for polyline
 
 d3.select("svg")//.selectAll("l")
@@ -702,8 +597,8 @@ d3.select("svg")//.selectAll("l")
 .append("line")
 .attr("x1",horizPreviewShift)
 .attr("x2",width)
-.attr("y1", n*moduleDistance + height - vertPreviewShift ) //- vertMultPreview[n]*(data.bets.betAvg*0-minValue[n])} )
-.attr("y2", n*moduleDistance + height - vertPreviewShift ) // - vertMultPreview[n]*(data.bets.betAvg-minValue[n])} )
+.attr("y1", n*moduleDistance + nk*subtitleShift + height - vertPreviewShift ) //- vertMultPreview[n]*(data.bets.betAvg*0-minValue[n])} )
+.attr("y2", n*moduleDistance + nk*subtitleShift + height - vertPreviewShift ) // - vertMultPreview[n]*(data.bets.betAvg-minValue[n])} )
 .attr("stroke-width",1)
 .attr("stroke","#000000")
 .attr("opacity",0.3);
@@ -715,12 +610,8 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",10)
 .text(function(){if (LANG=="en") {return "Average";} else {return "Среднее";}})
 .attr("x",horizPreviewShift)
-.attr("y", n*moduleDistance + height - vertPreviewShift - 5)
+.attr("y", n*moduleDistance + nk*subtitleShift + height - vertPreviewShift - 5)
 .attr("opacity",0.3);
-
-
-//horizShift + d.Date*cellWidth[n]+0*d.Time*cellWidth[n]/24}
-
 
 // vertical grid
 for (i=0;i<daysAmount[n]+3;i++)
@@ -728,8 +619,8 @@ for (i=0;i<daysAmount[n]+3;i++)
   d3.select("svg").append("line")
   .attr("x1",horizShift + i*cellWidth[n])
   .attr("x2",horizShift + i*cellWidth[n])
-  .attr("y1",n*moduleDistance + height - vertMult[n]*(maxValue[n]-minValue[n]))
-  .attr("y2",n*moduleDistance + height)//1035)
+  .attr("y1",n*moduleDistance + nk*subtitleShift + height - vertMult[n]*(maxValue[n]-minValue[n]))
+  .attr("y2",n*moduleDistance + nk*subtitleShift + height)//1035)
   .attr("stroke-width",1)
   .attr("stroke","#000000")
   .attr("opacity",0.3);
@@ -742,45 +633,34 @@ for (j=0;j<=(maxValue[n]-minValue[n]);j=j+horizGridStep[n])
   d3.select("svg").append("line")
   .attr("x1",0)
   .attr("x2",width)
-  .attr("y1",n*moduleDistance + height - j*vertMult[n])
-  .attr("y2",n*moduleDistance + height - j*vertMult[n])
+  .attr("y1",n*moduleDistance + nk*subtitleShift + height - j*vertMult[n])
+  .attr("y2",n*moduleDistance + nk*subtitleShift + height - j*vertMult[n])
   .attr("stroke-width",1)
   .attr("stroke","#000000")
   .attr("opacity",0.3);
 
   d3.select("svg").append("text")
   .attr("x",0)
-  .attr("y",n*moduleDistance + height - j*vertMult[n] - 5)
+  .attr("y",n*moduleDistance + nk*subtitleShift + height - j*vertMult[n] - 5)
   .attr("font-weight",800)
   .attr("font-size",12)
   .attr("opacity",0.5)
   .text(one(minValue[n]+j));
 }
-//n*moduleDistance + height-vertMult[n]*(d.Value-minValue[n])
 } 
 
-function drawData (n,data){
+function drawData (n,nk,data){
 
-/*
-var time = new Date(firstDay[n] * 1000);
-var month = time.getMonth();
-
- alert(month);
- */
- // drawDataElement (n,data.bets.bid[0]);
   for(var index in data.bets.bid)
   {
-    drawDataElement (n,data.bets.bid[index],data.bets);
+    drawDataElement (n,nk,data.bets.bid[index],data.bets);
   }
 
 
 }
 
 
-//  var lTime = new Date(lastTime * 1000);
-//  var fMonth = fTime.getMonth();
-
-function drawDataElement (n,data,data2){
+function drawDataElement (n,nk,data,data2){
 
 var time = new Date(data.timestamp * 1000);
 var hour = time.getHours();
@@ -791,14 +671,14 @@ var year = time.getYear();
 var firstDayLocal = new Date(firstDay[n] * 1000);//firstDay[n]);
 var firstMonth = firstDayLocal.getMonth();
 var dayStart = firstDayLocal.getDate();
-//var dateShift = timeDayCounter(firstDay[n],data.timestamp);
+
 var dateRes;
 
 var daysInMonth = new Array();
 if (year%4==0)
 {daysInMonth = [31,29,31,30,31,30,31,31,30,31,30,31];}
 else {daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];}
-//alert(firstMonth)
+
 if (firstMonth == month)
 {
   dateRes = day - dayStart;
@@ -819,36 +699,57 @@ var circle = d3.select("svg")//.selectAll("c")
 .attr("fill","#27aae1")
 .attr("opacity",0.9)
 .attr("r", 10)
-//.on("mouseover", function(d,i){d3.select(this).transition().attr("r",15).duration(150)})
-//.on("mouseout", function(d,i){d3.select(this).transition().attr("r",10).duration(150)})
-//.attr("cx",function(){return horizShift + dateShift*cellWidth[n]+hour*cellWidth[n]/24})  
 .attr("cx",function(){return horizShift + dateRes*cellWidth[n] + hour*cellWidth[n]/24})  
-.attr("cy",function(){return n*moduleDistance + height-vertMult[n]*(data.price-minValue[n])})
-              //.on("click", function(d){drawDetails(horizShift + d.Date*width/(16+2)+d.Time*width/(16+2)/24,height-vertMult*(d.Value-minValue),d.Name,d.Company,d.Value)});
+.attr("cy",function(){return n*moduleDistance + nk*subtitleShift + height - vertMult[n]*(data.price-minValue[n])})
+
 
 .on("mouseover", function(d,i){
   d3.select(this).transition().attr("r",15).attr("fill","#007eb3").duration(200);
   if (LANG=="en")
   {
-    drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + height-vertMult[n]*(data.price-minValue[n]),data2.users[data.uid].user_name_en,data2.users[data.uid].comp_name_en,data.price);
+    drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2+200,data2.users[data.uid].user_name_en,data2.users[data.uid].comp_name_en,data.price);
   }
   else
   {
-    drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + height-vertMult[n]*(data.price-minValue[n]),data2.users[data.uid].user_name,data2.users[data.uid].comp_name,data.price);
+    drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2 + 50,data2.users[data.uid].user_name,data2.users[data.uid].comp_name,data.price);
   } })
 .on("mouseout", function(){
   d3.select(this).transition().attr("r",10).attr("fill","#27aae1").duration(100);
   d3.selectAll("g").remove();});
 
-
-//d3.selectAll("rect")
-//.on("click", function(){
-//d3.selectAll("g").remove();
-//});
-
 }
 
-function drawDetails (x,y,name,company,value){
+function drawDetails (x,y,yCenter,name,company,value){
+
+/*
+var filter = d3.select("svg").append("filter")
+    .attr("id", "drop-shadow")
+    .attr("x","-20%")
+    .attr("y","-20%")
+    .attr("height", "140%")
+    .attr("width", "140%");
+
+filter.append("feGaussianBlur")
+    .attr("in", "SourceAlpha")
+    .attr("stdDeviation", 4)
+    .attr("result", "blur");
+
+filter.append("feOffset")
+    .attr("in", "blur")
+    .attr("dx", 0)
+    .attr("dy", 0)
+    .attr("result", "offsetBlur");
+
+
+var feMerge = filter.append("feMerge");
+
+feMerge.append("feMergeNode")
+    .attr("in", "offsetBlur")
+feMerge.append("feMergeNode")
+    .attr("in", "SourceGraphic");
+
+*/
+
 
 var zero = d3.format(".2f")
 
@@ -861,7 +762,7 @@ var zero = d3.format(".2f")
     x = x+15;
   }
 
-  if (y > (height/2))
+  if (y > yCenter)
   {
     y = y-85;
   }
@@ -879,12 +780,8 @@ var zero = d3.format(".2f")
   .attr("width",200)
   .attr("height",85)
   .attr("fill","#007eb3")
+//  .style("filter", "url(#drop-shadow)")
   .attr("opacity",0);
-
-
-//  .attr("stroke","#ffffff")
-//  .attr("stroke-width",1);
-
 
 
 var name=group.append("text")
@@ -923,14 +820,10 @@ var value=group.append("text")
 .attr("font-size","28")
 .attr("opacity",0);
 
-rectangle.transition().attr("opacity",1).delay(110);
-name.transition().attr("opacity",1).delay(180);
-company.transition().attr("opacity",1).delay(250);
-value.transition().attr("opacity",1).delay(320);
-
-
-
-
+rectangle.transition().attr("opacity",1).delay(50);
+name.transition().attr("opacity",1).delay(150);
+company.transition().attr("opacity",1).delay(200);
+value.transition().attr("opacity",1).delay(250);
 }
 
 
