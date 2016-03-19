@@ -76,6 +76,7 @@ var vertMult = new Array();
 var vertMultPreview = new Array();
 var horizMultPreview = new Array();
 var horizGridStep = new Array();
+var precision = new Array();
 
 var bigNumberColor = 0.75;
 
@@ -153,13 +154,21 @@ d3.select("svg")//.selectAll("t")
 
   }
 
-    d3.select("svg").attr("height",(j+i)*moduleDistance);
+    d3.select("svg").attr("height",(j+i)*moduleDistance + 2*subtitleShift);
 
 
 });
 
 
 function drawAll (i,nk,data){
+
+var color = "#27aae1";
+/*
+if ((data.title_ru.indexOf("Ставка")>=0) || (data.title_en.indexOf("Key")>=0) )
+{
+    color = "#ffb000";
+}
+*/
 
 var zero = d3.format(".0f")
 var one = d3.format(".0f")
@@ -184,15 +193,15 @@ for (var index in data.bets.bid)
       maxValue[i] = data.bets.betMax;
 
       var deltaValue = data.bets.betMax - data.bets.betMin;
-      if (deltaValue <= 0.2) { horizGridStep[i] = 0.02; }
-      else if (deltaValue <= 0.4) { horizGridStep[i] = 0.1; }
-      else if (deltaValue <= 2) { horizGridStep[i] = 0.2; }
-      else if (deltaValue <= 7) { horizGridStep[i] = 0.5; }
-      else if (deltaValue <= 10) { horizGridStep[i] = 2; }
-      else if (deltaValue <= 30) { horizGridStep[i] = 5; }
-      else if (deltaValue <= 50) { horizGridStep[i] = 10; }
-      else if (deltaValue <= 100) { horizGridStep[i] = 20; }
-      else { horizGridStep[i] = 30; }
+      if (deltaValue <= 0.2) { horizGridStep[i] = 0.02; precision[i]=2;}
+      else if (deltaValue <= 0.4) { horizGridStep[i] = 0.1; precision[i]=1;}
+      else if (deltaValue <= 1) { horizGridStep[i] = 0.2; precision[i]=1;}
+      else if (deltaValue <= 7) { horizGridStep[i] = 0.5; precision[i]=1;}
+      else if (deltaValue <= 10) { horizGridStep[i] = 2; precision[i]=0;}
+      else if (deltaValue <= 30) { horizGridStep[i] = 5; precision[i]=0;}
+      else if (deltaValue <= 50) { horizGridStep[i] = 10; precision[i]=0;}
+      else if (deltaValue <= 100) { horizGridStep[i] = 20; precision[i]=0;}
+      else { horizGridStep[i] = 30; precision[i]=0;}
 //alert(maxValue[i])
       maxValue[i] = horizGridStep[i] * ( zero((maxValue[i] - minValue[i]) / horizGridStep[i])*1 ) + minValue[i];
       vertMult[i] = (height - 110) / (maxValue[i] - minValue[i]);  
@@ -210,7 +219,7 @@ for (var index in data.bets.bid)
       horizMultPreview[i] = (width - horizPreviewShift) / pointsAmnt;
 
   drawTexture(i,nk,data);
-  drawData(i,nk,data);
+  drawData(i,nk,data,color);
 
 }
 
@@ -331,7 +340,7 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",12)
 .text(timeConverterText(firstDay[i])) //data.open_ts))  
 .attr("x",horizShift)
-.attr("y",function (){return i*moduleDistance + nk*subtitleShift + height + 15})
+.attr("y",i*moduleDistance + nk*subtitleShift + height + 15)
 .attr("opacity",0.5);
 
 
@@ -342,9 +351,60 @@ d3.select("svg")//.selectAll("t")
 .attr("font-size",12)
 .text(timeConverterText(lastDay[i])) //data.close_ts))  
 .attr("text-align","right")
-.attr("x",width-80)
-.attr("y",function (){return i*moduleDistance + nk*subtitleShift + height + 15})
+.attr("x",width - 80)
+.attr("y",i*moduleDistance + nk*subtitleShift + height + 15)
 .attr("opacity",0.5);
+
+// arrow
+d3.select("svg")//.selectAll("l")
+//.data(data).enter()
+.append("line")
+//.attr("class","arrow")
+//.attr("marker-end","url(#arrow)")
+.attr("x1",horizShift + 80)
+.attr("x2",width - 80 - 30)
+.attr("y1", i*moduleDistance + nk*subtitleShift + height + 11 ) 
+.attr("y2", i*moduleDistance + nk*subtitleShift + height + 11 ) 
+.attr("stroke-width",1)
+.style("stroke-dasharray", ("4, 2"))
+.attr("stroke","#000000")
+.attr("opacity",0.4);
+
+
+var x1 = width-80-30 + 10;
+var y1 = i*moduleDistance+nk*subtitleShift+height+11;
+var x2 = x1 - 10;
+var y2 = y1 - 3;
+var x3 = x1 - 10;
+var y3 = y1 + 3;
+
+d3.select("svg")//.selectAll("l")
+.append("path")
+.attr("fill","black")
+.attr("opacity",0.4)
+//.attr("points",lineData);
+.attr("d","M " + x1 + " " + y1 + " L " + x2 + " " + y2 + " L " + x3 + " " + y3);
+
+
+//drag_line.attr('d', 'M' + mousedown_node.x + ',' + mousedown_node.y + 'L' + d3.mouse(this)[0] + ',' + d3.mouse(this)[1]);
+/*
+  "M "+10+" "+25+" L"+10+" "+75
+4            L 60 75
+5            L 10 25
+
+*/
+//.attr("points", function(){return[
+/*  { "x":width-80-30 - 10 , "y":i*moduleDistance+nk*subtitleShift+height+12 - 5 },
+  { "x":width-80-30 - 10,"y":i*moduleDistance+nk*subtitleShift+height+12 + 5 },
+  { "x":width-80-30,"y":i*moduleDistance+nk*subtitleShift+height+12 }
+*/
+/*
+{ "x": 1,   "y": 5},  { "x": 20,  "y": 20},
+                  { "x": 40,  "y": 10}, { "x": 60,  "y": 40},
+                  { "x": 80,  "y": 5},  { "x": 100, "y": 60}
+
+  ];}
+  );*/
 
 }
 
@@ -626,7 +686,7 @@ for (i=0;i<daysAmount[n]+3;i++)
   .attr("opacity",0.3);
 }
 
-  var one = d3.format(".1f")
+  var one = d3.format("."+precision[n]+"f")
 // horizontal grid
 for (j=0;j<=(maxValue[n]-minValue[n]);j=j+horizGridStep[n])
 {
@@ -649,18 +709,18 @@ for (j=0;j<=(maxValue[n]-minValue[n]);j=j+horizGridStep[n])
 }
 } 
 
-function drawData (n,nk,data){
+function drawData (n,nk,data,color){
 
   for(var index in data.bets.bid)
   {
-    drawDataElement (n,nk,data.bets.bid[index],data.bets);
+    drawDataElement (n,nk,data.bets.bid[index],data.bets,color);
   }
 
 
 }
 
 
-function drawDataElement (n,nk,data,data2){
+function drawDataElement (n,nk,data,data2,color){
 
 var time = new Date(data.timestamp * 1000);
 var hour = time.getHours();
@@ -696,7 +756,7 @@ var circle = d3.select("svg")//.selectAll("c")
 //.attr("id",function(d,i) {return "circle"+"_"+n+"_"+data.uid})
 //.attr("stroke-width",0.5)
 //.attr("stroke","#222222")
-.attr("fill","#27aae1")
+.attr("fill",color)//"#27aae1")
 .attr("opacity",0.9)
 .attr("r", 10)
 .attr("cx",function(){return horizShift + dateRes*cellWidth[n] + hour*cellWidth[n]/24})  
@@ -704,7 +764,7 @@ var circle = d3.select("svg")//.selectAll("c")
 
 
 .on("mouseover", function(d,i){
-  d3.select(this).transition().attr("r",15).attr("fill","#007eb3").duration(200);
+  d3.select(this).transition().attr("r",15).duration(200);//.attr("fill","#007eb3")
   if (LANG=="en")
   {
     drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2+200,data2.users[data.uid].user_name_en,data2.users[data.uid].comp_name_en,data.price);
@@ -714,7 +774,7 @@ var circle = d3.select("svg")//.selectAll("c")
     drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2 + 50,data2.users[data.uid].user_name,data2.users[data.uid].comp_name,data.price);
   } })
 .on("mouseout", function(){
-  d3.select(this).transition().attr("r",10).attr("fill","#27aae1").duration(100);
+  d3.select(this).transition().attr("r",10).duration(100);//.attr("fill","#27aae1")
   d3.selectAll("g").remove();});
 
 }
