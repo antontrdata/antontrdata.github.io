@@ -670,7 +670,7 @@ d3.select("svg")//.selectAll("l")
 .attr("y2", n*moduleDistance + nk*subtitleShift + height - vertPreviewShift ) // - vertMultPreview[n]*(data.bets.betAvg-minValue[n])} )
 .attr("stroke-width",1)
 .attr("stroke","#000000")
-.attr("opacity",0.3);
+.attr("opacity",0.2);
 
 d3.select("svg")//.selectAll("t")
 //.data(data).enter()
@@ -680,7 +680,7 @@ d3.select("svg")//.selectAll("t")
 .text(function(){if (LANG=="en") {return "Average";} else {return "Среднее";}})
 .attr("x",horizPreviewShift)
 .attr("y", n*moduleDistance + nk*subtitleShift + height - vertPreviewShift - 5)
-.attr("opacity",0.3);
+.attr("opacity",0.2);
 
 // vertical grid
 for (i=0;i<daysAmount[n]+3;i++)
