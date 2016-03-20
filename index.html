@@ -348,7 +348,7 @@ d3.select("svg")//.selectAll("t")
 .text(timeConverterText(firstDay[i])) //data.open_ts))  
 .attr("x",horizShift)
 .attr("y",i*moduleDistance + nk*subtitleShift + height + 15)
-.attr("opacity",0.5);
+.attr("opacity",0.7);
 
 
 d3.select("svg")//.selectAll("t")
@@ -360,7 +360,7 @@ d3.select("svg")//.selectAll("t")
 .attr("text-align","right")
 .attr("x",width - 80)
 .attr("y",i*moduleDistance + nk*subtitleShift + height + 15)
-.attr("opacity",0.5);
+.attr("opacity",0.7);
 
 // arrow
 d3.select("svg")//.selectAll("l")
@@ -373,9 +373,9 @@ d3.select("svg")//.selectAll("l")
 .attr("y1", i*moduleDistance + nk*subtitleShift + height + 11 ) 
 .attr("y2", i*moduleDistance + nk*subtitleShift + height + 11 ) 
 .attr("stroke-width",1)
-.style("stroke-dasharray", ("4, 2"))
+.style("stroke-dasharray", ("1, 1"))
 .attr("stroke","#000000")
-.attr("opacity",0.4);
+.attr("opacity",0.5);
 
 
 var x1 = width-80-30 + 10;
@@ -388,7 +388,7 @@ var y3 = y1 + 3;
 d3.select("svg")//.selectAll("l")
 .append("path")
 .attr("fill","black")
-.attr("opacity",0.4)
+.attr("opacity",0.5)
 //.attr("points",lineData);
 .attr("d","M " + x1 + " " + y1 + " L " + x2 + " " + y2 + " L " + x3 + " " + y3);
 
@@ -566,7 +566,7 @@ function drawTextureElement (n,nk,min,max,day,mnth){
 var t = textures.lines()
 .size(8)
 .strokeWidth(3)
-.stroke("#cccccc");
+.stroke("#eeeeee");
 
 var texture = d3.select("svg")//.selectAll("r")
 //.data(data.bets.bid).enter()
@@ -592,8 +592,9 @@ d3.select("svg")//.selectAll("l")
 .attr("y1", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(max-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
 .attr("x2", horizShift + (day+1)*cellWidth[n]) //function(d,i) {return horizShift + (i+1)*width/(daysAmount[n]+2)} )
 .attr("y2",n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(max-minValue[n])) //function(d) {return n*moduleDistance + height-vertMult[n]*(d.maxValue-minValue[n])})
-.attr("stroke-width",2)
-.attr("stroke","#007eb3");
+.attr("stroke-width",1)
+.style("stroke-dasharray", ("3, 2"))
+.attr("stroke","#b2b2b2");
 
 // bottom blue line
 d3.select("svg")//.selectAll("l")
@@ -603,8 +604,9 @@ d3.select("svg")//.selectAll("l")
 .attr("y1", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(min-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
 .attr("x2", horizShift + (day+1)*cellWidth[n]) //function(d,i) {return horizShift + (i+1)*width/(daysAmount[n]+2)} )
 .attr("y2", n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(min-minValue[n]))//function(d) {return n*moduleDistance + height-vertMult[n]*(d.minValue-minValue[n])})
-.attr("stroke-width",2)
-.attr("stroke","#007eb3");
+.attr("stroke-width",1)
+.style("stroke-dasharray", ("3, 2"))
+.attr("stroke","#b2b2b2");
 
 }
 
@@ -690,7 +692,7 @@ for (i=0;i<daysAmount[n]+3;i++)
   .attr("y2",n*moduleDistance + nk*subtitleShift + height)//1035)
   .attr("stroke-width",1)
   .attr("stroke","#000000")
-  .attr("opacity",0.3);
+  .attr("opacity",0.1);
 }
 
   var one = d3.format("."+precision[n]+"f")
@@ -704,14 +706,14 @@ for (j=0;j<=(maxValue[n]-minValue[n])+0.5*horizGridStep[n];j=j+horizGridStep[n])
   .attr("y2",n*moduleDistance + nk*subtitleShift + height - j*vertMult[n])
   .attr("stroke-width",1)
   .attr("stroke","#000000")
-  .attr("opacity",0.3);
+  .attr("opacity",0.5);
 
   d3.select("svg").append("text")
   .attr("x",0)
   .attr("y",n*moduleDistance + nk*subtitleShift + height - j*vertMult[n] - 5)
   .attr("font-weight",800)
   .attr("font-size",12)
-  .attr("opacity",0.5)
+  .attr("opacity",0.7)
   .text(one(minValue[n]+j));
 }
 } 
