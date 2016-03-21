@@ -36,7 +36,7 @@ position: absolute;
 <script>
 
 var TYPE = "site";
-var LANG = "en";
+var LANG = "ru";
 
 var width;
 var bigNumbersDistance;
@@ -706,7 +706,7 @@ for (j=0;j<=(maxValue[n]-minValue[n])+0.5*horizGridStep[n];j=j+horizGridStep[n])
   .attr("y2",n*moduleDistance + nk*subtitleShift + height - j*vertMult[n])
   .attr("stroke-width",1)
   .attr("stroke","#000000")
-  .attr("opacity",0.5);
+  .attr("opacity",0.8);
 
   d3.select("svg").append("text")
   .attr("x",0)
@@ -765,7 +765,7 @@ var circle = d3.select("svg")//.selectAll("c")
 //.attr("id",function(d,i) {return "circle"+"_"+n+"_"+data.uid})
 //.attr("stroke-width",0.5)
 //.attr("stroke","#222222")
-.attr("fill",color)//"#27aae1")
+.attr("fill","#27aae1")//color)//"#27aae1")
 .attr("opacity",0.9)
 .attr("r", 10)
 .attr("cx",function(){return horizShift + dateRes*cellWidth[n] + hour*cellWidth[n]/24})  
@@ -773,17 +773,17 @@ var circle = d3.select("svg")//.selectAll("c")
 
 
 .on("mouseover", function(d,i){
-  d3.select(this).transition().attr("r",15).duration(200);//.attr("fill","#007eb3")
+  d3.select(this).transition().attr("r",15).attr("fill","#007eb3").duration(200);//.attr("fill","#007eb3")
   if (LANG=="en")
   {
-    drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2+200,data2.users[data.uid].user_name_en,data2.users[data.uid].comp_name_en,data.price);
+    drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2+50,data2.users[data.uid].user_name_en,data2.users[data.uid].comp_name_en,data.price);
   }
   else
   {
     drawDetails(horizShift + dateRes*cellWidth[n]+hour*cellWidth[n]/24,n*moduleDistance + nk*subtitleShift + height-vertMult[n]*(data.price-minValue[n]),n*moduleDistance + nk*subtitleShift + height/2 + 50,data2.users[data.uid].user_name,data2.users[data.uid].comp_name,data.price);
   } })
 .on("mouseout", function(){
-  d3.select(this).transition().attr("r",10).duration(100);//.attr("fill","#27aae1")
+  d3.select(this).transition().attr("r",10).attr("fill","#27aae1").duration(100);//.attr("fill","#27aae1")
   d3.selectAll("g").remove();});
 
 }
