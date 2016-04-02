@@ -186,13 +186,14 @@ for (var index in data.bets.bid)
     {lastDay[i]=data.bets.bid[index].timestamp}
   pointsAmnt++;
 }
-      minValue[i] = Math.floor(data.bets.betMin);//10*zero(data.bets.betMin/10);
+      minValue[i] = Math.floor(data.bets.betMin);//Math.floor(data.bets.betMin); //10*zero(data.bets.betMin/10);
       maxValue[i] = data.bets.betMax;
-
+//alert(minValue[i])
       daysAmount[i] = timeDayCounter(i,firstDay[i],lastDay[i]);
 
       var deltaValue = data.bets.betMax - data.bets.betMin;
-      if (deltaValue <= 0.2) { horizGridStep[i] = 0.05; precision[i]=2;}
+      if (deltaValue == 0) { horizGridStep[i] = 1; precision[i]=1; minValue[i]=minValue[i]-3; maxValue[i]=maxValue[i]+2;}
+      else if (deltaValue <= 0.2) { horizGridStep[i] = 0.05; precision[i]=2;}
       else if (deltaValue <= 0.4) { horizGridStep[i] = 0.1; precision[i]=1;}
       else if (deltaValue <= 1) { horizGridStep[i] = 0.2; precision[i]=1;}
       else if (deltaValue <= 4) { horizGridStep[i] = 0.5; precision[i]=1;}
